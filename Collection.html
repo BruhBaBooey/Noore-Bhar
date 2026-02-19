@@ -147,8 +147,13 @@
     <p>© 2026 NOORÉ Jewellery | All Rights Reserved</p>
 </footer>
 
+<!-- Add to Cart sound -->
 <audio id="addToCartSound">
     <source src="click.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Remove item sound -->
+<audio id="removeItemSound" src="trash.mp3" preload="auto">
 </audio>
 
 <script>
@@ -193,9 +198,21 @@ function addToCart(button) {
     removeBtn.classList.add("remove-item");
     removeBtn.innerText = "✕";
 
-    // ✅ FIX: stop click from bubbling to document
+    // ✅ Remove item + sound (does NOT close cart)
     removeBtn.onclick = (e) => {
         e.stopPropagation();
+
+        /* ========= REMOVE SOUND SETTINGS ========= */
+        const removeSound = document.getElementById("removeItemSound");
+
+        if (removeSound) {
+            removeSound.volume = 0.20;      // 🔊 CHANGE VOLUME
+            removeSound.playbackRate = 1.2; // ⏩ CHANGE SPEED
+            removeSound.currentTime = 0;
+            removeSound.play();
+        }
+        /* ========================================= */
+
         item.remove();
         updateCartTotal();
     };
@@ -205,10 +222,12 @@ function addToCart(button) {
     item.appendChild(removeBtn);
     cartItems.appendChild(item);
 
-    // Sound
+    // Add-to-cart sound
     const sound = document.getElementById("addToCartSound");
     if (sound) {
         sound.currentTime = 0;
+        sound.volume = 0.20;        // 🔊 CHANGE VOLUME
+        sound.playbackRate = 1.2;   // ⏩ CHANGE SPEED
         sound.play();
     }
 
@@ -237,7 +256,7 @@ function updateCartTotal() {
         "Total: ₹" + total.toFixed(2);
 }
 
-/* ✅ ADD THIS — prevents clicks inside cart from closing it */
+/* Prevent clicks inside cart from closing it */
 document.getElementById("cart").addEventListener("click", function (event) {
     event.stopPropagation();
 });
@@ -255,6 +274,61 @@ document.addEventListener("click", function (event) {
         cart.classList.remove("active");
     }
 });
+
+/* ================================
+   DRAG TO CLOSE CART (RIGHT DRAG)
+================================ */
+
+const cart = document.getElementById("cart");
+
+let isDragging = false;
+let startX = 0;
+
+/* Start drag */
+cart.addEventListener("mousedown", startDrag);
+cart.addEventListener("touchstart", startDrag, { passive: true });
+
+function startDrag(e) {
+    if (!cart.classList.contains("active")) return;
+
+    isDragging = true;
+    startX = e.touches ? e.touches[0].clientX : e.clientX;
+    cart.style.transition = "none";
+}
+
+/* Drag move */
+document.addEventListener("mousemove", dragMove);
+document.addEventListener("touchmove", dragMove, { passive: true });
+
+function dragMove(e) {
+    if (!isDragging) return;
+
+    const currentX = e.touches ? e.touches[0].clientX : e.clientX;
+    const delta = currentX - startX;
+
+    if (delta > 0) {
+        cart.style.right = `-${delta}px`;
+    }
+}
+
+/* End drag */
+document.addEventListener("mouseup", endDrag);
+document.addEventListener("touchend", endDrag);
+
+function endDrag() {
+    if (!isDragging) return;
+
+    isDragging = false;
+    cart.style.transition = "right 0.4s ease";
+
+    const draggedAmount = Math.abs(parseInt(cart.style.right) || 0);
+
+    if (draggedAmount > 120) {
+        cart.classList.remove("active");
+    }
+
+    cart.style.right = "";
+}
 </script>
 
 </body>

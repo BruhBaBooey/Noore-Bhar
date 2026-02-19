@@ -160,6 +160,10 @@
     <source src="click.mp3" type="audio/mpeg">
 </audio>
 
+<!-- Remove item sound -->
+<audio id="removeItemSound" src="trash.mp3" preload="auto">
+</audio>
+
 <script>
 function scrollToProducts() {
     document.getElementById("products").scrollIntoView({ behavior: "smooth" });
@@ -196,9 +200,18 @@ function addToCart(button) {
     removeBtn.classList.add("cart-item-remove");
     removeBtn.innerText = "✕";
 
-    // ✅ FIX: stop bubbling ONLY here
+    // ✅ REMOVE ITEM SOUND ADDED (nothing else changed)
     removeBtn.onclick = function (e) {
         e.stopPropagation();
+
+        const removeSound = document.getElementById("removeItemSound");
+        if (removeSound) {
+            removeSound.volume = 0.20;      // 🔊 volume
+            removeSound.playbackRate = 1.2; // ⏩ speed
+            removeSound.currentTime = 0;
+            removeSound.play();
+        }
+
         item.remove();
         updateCartTotal();
     };
@@ -210,7 +223,8 @@ function addToCart(button) {
 
     const sound = document.getElementById("addToCartSound");
     if (sound) {
-        sound.currentTime = 0;
+        sound.volume = 0.20;
+        sound.playbackRate = 1.2;
         sound.play();
     }
 
@@ -230,12 +244,12 @@ function updateCartTotal() {
     document.getElementById("cartTotal").innerText = `Total: ₹${total}`;
 }
 
-/* ✅ ADD THIS — prevents inside clicks from closing cart */
+/* Prevent inside clicks from closing cart */
 document.getElementById("cart").addEventListener("click", function (event) {
     event.stopPropagation();
 });
 
-/* KEEP YOUR ORIGINAL OUTSIDE CLICK LOGIC */
+/* Outside click closes cart */
 document.addEventListener("click", function (event) {
     const cart = document.getElementById("cart");
     const cartButton = event.target.closest('[onclick="toggleCart()"]');
@@ -248,6 +262,59 @@ document.addEventListener("click", function (event) {
         cart.classList.remove("active");
     }
 });
+
+/* ================================
+   DRAG TO CLOSE CART (RIGHT DRAG)
+================================ */
+
+const cart = document.getElementById("cart");
+
+let isDragging = false;
+let startX = 0;
+let startRight = 0;
+
+cart.addEventListener("mousedown", startDrag);
+cart.addEventListener("touchstart", startDrag, { passive: true });
+
+function startDrag(e) {
+    if (!cart.classList.contains("active")) return;
+
+    isDragging = true;
+    startX = e.touches ? e.touches[0].clientX : e.clientX;
+    startRight = 0;
+    cart.style.transition = "none";
+}
+
+document.addEventListener("mousemove", dragMove);
+document.addEventListener("touchmove", dragMove, { passive: true });
+
+function dragMove(e) {
+    if (!isDragging) return;
+
+    const currentX = e.touches ? e.touches[0].clientX : e.clientX;
+    const delta = currentX - startX;
+
+    if (delta > 0) {
+        cart.style.right = `-${delta}px`;
+    }
+}
+
+document.addEventListener("mouseup", endDrag);
+document.addEventListener("touchend", endDrag);
+
+function endDrag() {
+    if (!isDragging) return;
+
+    isDragging = false;
+    cart.style.transition = "right 0.4s ease";
+
+    const draggedAmount = Math.abs(parseInt(cart.style.right) || 0);
+    if (draggedAmount > 120) {
+        cart.classList.remove("active");
+    }
+
+    cart.style.right = "";
+}
 </script>
 
 </body>
