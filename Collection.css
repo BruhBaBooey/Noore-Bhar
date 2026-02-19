@@ -27,16 +27,19 @@
 body {
     background: var(--light);
     color: #333;
+    overflow-x: hidden; /* prevent horizontal scroll */
 }
 
 /* HEADER */
 header {
+    width: 100%; /* full width */
     background: var(--maroon);
     padding: var(--header-padding-vertical) 8%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     color: white;
+    box-sizing: border-box;
 }
 
 .logo {
@@ -124,11 +127,11 @@ nav a:hover {
     text-align: center;
     position: relative;
     margin-bottom: 20px; /* spacing below banner */
-    width: 100vw;      /* full viewport width */
-    left: 50%;
-    right: 50%;
-    margin-left: -50vw; /* shift left to align with viewport */
-    margin-right: -50vw;
+    width: 100%;      /* full width */
+    left: 0;          /* reset offsets */
+    right: 0;
+    margin-left: 0;
+    margin-right: 0;
 }
 
 .category-banner h2 {
@@ -310,7 +313,6 @@ nav a:hover {
     color: red;
 }
 
-
 .cart-item-remove:hover {
     color: var(--maroon);
     transform: scale(1.2);
@@ -329,11 +331,13 @@ nav a:hover {
 
 /* FOOTER */
 footer {
+    width: 100%; /* full width */
     background: var(--maroon);
     color: white;
     padding: 20px;
     text-align: center;
     margin-top: 60px;
+    box-sizing: border-box;
 }
 
 footer a {
@@ -345,4 +349,108 @@ footer a {
 
 footer a:hover { 
     color: white; 
+}
+
+/* OUR OFFERINGS HEADER - FULL HEIGHT */
+.offerings-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 88vh;             /* full viewport height */
+    text-align: center;
+}
+
+.offerings-header h2 {
+    color: var(--category-text-color);  /* maroon */
+    font-family: 'Playfair Display', serif;  /* same as category text */
+    font-size: 52px;                      /* slightly taller than category h2 */
+    letter-spacing: 3px;
+}
+
+/* MOBILE / SMALL TABLET ADJUSTMENTS */
+@media (max-width: 768px) {
+
+    /* ===== HEADER ===== */
+    header {
+        padding: var(--header-padding-vertical) 5%; /* reduce side padding */
+    }
+
+    @media (max-width: 480px) {
+        header {
+            padding: var(--header-padding-vertical) 3%; /* very narrow phones */
+        }
+    }
+
+    /* ===== PRODUCT CARDS ===== */
+    .category-section .card {
+        width: 180px; /* slightly smaller for mobile */
+        padding: 15px; /* tighter layout */
+    }
+
+    .category-section .product-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns */
+        gap: 12px;                             /* smaller gap */
+        justify-items: center;
+    }
+
+    /* ===== CATEGORY BANNERS ===== */
+    .category-banner {
+        height: 25vh;                       /* smaller banner height */
+        width: 100%;                         /* full width */
+        left: 0;
+        right: 0;
+        margin-left: 0;
+        margin-right: 0;
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .category-banner h2 {
+        font-size: 32px;                     /* smaller heading */
+        padding: 8px 12px;                   /* fit inside banner */
+        text-align: center;
+        margin: 0;
+        display: block;
+        max-width: 90%;
+        word-wrap: break-word;
+        line-height: 1.2em;
+    }
+
+    /* ===== OFFERINGS HEADER ===== */
+    .offerings-header {
+        height: 60vh;                   /* shorter for mobile */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 0 10px;
+    }
+
+    .offerings-header h2 {
+        font-size: 36px;                 /* smaller text */
+        line-height: 1.2em;
+        margin: 0;
+        padding: 0 10px;
+        word-wrap: break-word;
+    }
+
+    /*  NAV  */
+
+    nav {
+        display: flex;
+        flex-wrap: nowrap;       /* prevent wrapping */
+        justify-content: flex-end; /* keep links aligned right */
+        overflow-x: auto;        /* allow horizontal scroll if needed */
+        -webkit-overflow-scrolling: touch; /* smooth scroll on mobile */
+    }
+
+    nav a {
+        flex-shrink: 0;          /* prevent links from shrinking too much */
+        margin-left: 15px;       /* slightly smaller spacing for mobile */
+        white-space: nowrap;     /* keep text in one line */
+    }
+
 }
