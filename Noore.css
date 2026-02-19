@@ -1,0 +1,440 @@
+:root {
+    --maroon: #5a0f1c;
+    --dark-maroon: #3b0912;
+    --gold: #d4af37;
+    --light: #f8f5f2;
+    --category-banner-height: 40vh; /* ~2/3 of hero section, can change later */
+    --category-text-color: var(--maroon); /* Change this to adjust text color */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: var(--light);
+    color: #333;
+}
+
+/* HEADER */
+
+header {
+    background: var(--maroon);
+    padding: 20px 8%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+
+.logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    letter-spacing: 2px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 25px;
+    font-weight: 300;
+    transition: 0.3s;
+}
+
+nav a:hover {
+    color: var(--gold);
+}
+
+/* HERO */
+
+.hero {
+    height: 90vh;
+    position: relative;
+    overflow: hidden;
+
+    /* --------- HERO BACKGROUND IMAGE ---------
+       Replace image1.png later
+    */
+    background: 
+        linear-gradient(rgba(90,15,28,0.75), rgba(90,15,28,0.75)),
+        url('Background.png') center / cover no-repeat;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+}
+
+.hero-bg {
+    position: absolute;
+    inset: 0;
+
+    /* --------- HERO IMAGE ---------
+       Replace image1.png later
+    */
+    background: url('Background.png') center / cover no-repeat;
+
+    /* Overlay */
+    filter: brightness(0.35);
+
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: white;
+}
+
+.hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 60px;
+    letter-spacing: 4px;
+}
+
+.hero button {
+    margin-top: 20px;
+    padding: 12px 30px;
+    border: 2px solid var(--gold);
+    background: transparent;
+    color: var(--gold);
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+.hero button:hover {
+    background: var(--gold);
+    color: var(--maroon);
+}
+
+/* PRODUCTS */
+
+.products {
+    padding: 40px 8%;
+    text-align: center;
+    padding-top: 60px;
+}
+
+.products h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 40px;
+    color: var(--maroon);
+    margin-bottom: 10px;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    transition: 0.4s;
+    width: 280px;          /* FIXED card width */
+    flex-shrink: 0;        /* prevents shrinking */
+}
+
+.card:hover {
+    transform: translateY(-10px);
+}
+
+.product-img {
+    width: 100%;
+
+    /* --------- KEEP IMAGE RATIO CONSISTENT --------- */
+    aspect-ratio: 1 / 1;        /* 1:1 square (change to 3/4 or 4/5 if you want) */
+
+    background: #eee;
+    border-radius: 10px;
+    margin-bottom: 15px;
+
+    overflow: hidden;           /* prevents overflow when image zooms */
+}
+
+.card h3 {
+    font-weight: 500;
+}
+
+.price {
+    margin: 10px 0;
+    font-weight: 500;
+    color: var(--maroon);
+}
+
+.card button {
+    padding: 8px 18px;
+    background: var(--maroon);
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+    position: relative;
+    overflow: hidden;
+    border-radius: 4px;
+    transition: transform 0.15s ease, background 0.3s ease;
+}
+
+/* --------- POP ANIMATION --------- */
+.card button.pop {
+    animation: popClick 0.4s ease;
+}
+
+.card button:hover {
+    background: var(--dark-maroon);
+    transform: scale(1.04); /* --------- HOVER POP AMOUNT --------- */
+}
+
+@keyframes popClick {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(0.95); /* --------- POP SIZE --------- */
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* CONTINUOUS SCROLLING PRODUCT CARDS */
+
+/*
+    CHANGE SCROLL SPEED HERE:
+    - smaller value = faster scroll
+    - larger value = slower scroll
+*/
+.scroll-track {
+    display: flex;
+    gap: 30px;
+    width: max-content;
+    animation: scroll-left 80s linear infinite;
+}
+
+/*
+    CHANGE VISIBLE AREA HEIGHT / SPACING HERE
+*/
+.scroll-wrapper {
+    overflow: hidden;
+    width: 100%;
+    margin-top: 40px;
+}
+
+/*
+    CHANGE CARD WIDTH HERE
+    (affects how many cards are visible at once)
+*/
+.scroll-track .card {
+    min-width: 280px;
+    flex-shrink: 0;
+}
+
+/* Infinite left scrolling animation */
+@keyframes scroll-left {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+@keyframes scrollProducts {
+    from {
+        /* --------- ENTRY POINT ---------
+           More positive = cards start further right (off-screen)
+           Try 120%–200% if you want dramatic entry
+        */
+        transform: translateX(200%);
+    }
+
+    to {
+        /* --------- EXIT POINT ---------
+           More negative = cards exit further left (off-screen)
+           Try -120% to -200%
+        */
+        transform: translateX(-200%);
+    }
+}
+
+/* PRODUCT SCROLL FADE MASK */
+
+.product-scroll-wrapper {
+    position: relative;
+    overflow: hidden;
+
+    /* --------- FADE WIDTH CONTROL ---------
+       Increase % = wider fade area on sides
+       Recommended: 8% – 15%
+    */
+    mask-image: linear-gradient(
+        to right,
+        transparent 0%,
+        black 6%,
+        black 94%,
+        transparent 100%
+    );
+
+    -webkit-mask-image: linear-gradient(
+        to right,
+        transparent 0%,
+        black 6%,
+        black 94%,
+        transparent 100%
+    );
+}
+
+/* CART */
+
+.cart {
+    position: fixed;
+    right: -400px;
+    top: 0;
+    width: 350px;
+    height: 100%;
+    background: white;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+    padding: 20px;
+    transition: right 0.4s ease;
+    overflow-y: auto;
+    z-index: 999;
+}
+
+.cart.active {
+    right: 0;
+}
+
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.cart h3 {
+    color: var(--maroon);
+}
+
+/* CLOSE CART BUTTON */
+
+.close-cart {
+    background: none;
+    border: none;
+
+    /* --------- CHANGE THICKNESS HERE --------- */
+    font-size: 26px;
+    font-weight: 650;
+
+    /* --------- CHANGE POSITION HERE --------- */
+    margin-left: 10px;
+    margin-top: 5px;
+
+    cursor: pointer;
+    color: var(--maroon);
+
+    transition: transform 0.1s ease, color 0.3s ease;
+}
+
+.close-cart:hover {
+    color: var(--dark-maroon);
+    transform: scale(1.05);
+}
+
+/* CART ITEMS */
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.cart-item-name {
+    flex: 1;
+}
+
+.cart-item-price {
+    margin-left: 10px;
+    font-weight: 500;
+    color: var(--maroon);
+}
+
+.cart-item-remove {
+    background: none;
+    border: none;
+    color: var(--dark-maroon);
+    font-size: 16px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.cart-item-remove:hover {
+    color: red;
+}
+
+.cart-total {
+    font-weight: 600;
+    font-size: 18px;
+    margin-top: 15px;
+    text-align: right;
+    color: var(--maroon);
+    border-top: 1px solid #ddd;
+}
+
+/* FOOTER */
+
+footer {
+    background: var(--maroon);
+    color: white;
+    padding: 20px;
+    text-align: center;
+    margin-top: 60px;
+}
+
+/* FOOTER LINKS (remove harsh blue) */
+
+footer a {
+    color: var(--gold); /* --------- CHANGE LINK COLOR HERE --------- */
+    text-decoration: none;
+    font-weight: 400;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: white; /* --------- HOVER COLOR --------- */
+}
+
+/*  CATEGORY   */
+
+.category-banner {
+    height: var(--category-banner-height);
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.category-banner h2 {
+    color: var(--category-text-color);
+    font-family: 'Playfair Display', serif;
+    font-size: 48px; /* Change size if needed */
+    letter-spacing: 3px;
+    background: rgba(255, 255, 255, 0.1); /* subtle overlay for readability */
+    padding: 20px 40px;
+    border-radius: 10px;
+}

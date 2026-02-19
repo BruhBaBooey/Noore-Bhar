@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NOORÉ | Luxury Jewelry</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+<!-- External CSS -->
+<link rel="stylesheet" href="Noore.css">
+</head>
+
+<body>
+
+<header>
+    <div class="logo">NOORÉ</div>
+    <nav>
+        <a href="Index.html">Home</a>
+        <a href="Collection.html">Collections</a>
+        <a href="#contact" onclick="scrollToContact()">Contact</a>
+        <a href="#" onclick="toggleCart()">Cart</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <div>
+        <h1>Luxury Redefined</h1>
+        <button onclick="scrollToProducts()">Explore</button>
+    </div>
+</section>
+
+<section class="products" id="products">
+    <h2>Our Best</h2>
+
+    <div class="product-scroll-wrapper">
+        <div class="scroll-track">
+
+            <!-- ===== PRODUCT SET 1 ===== -->
+            <div class="card">
+                <div class="product-img"></div>
+                <h3>Product Name</h3>
+                <div class="price">₹0</div>
+                <button onclick="addToCart(this)">Add to Cart</button>
+            </div>
+
+            <div class="card">
+                <div class="product-img"></div>
+                <h3>Product Name</h3>
+                <div class="price">₹0</div>
+                <button onclick="addToCart(this)">Add to Cart</button>
+            </div>
+
+            <div class="card">
+                <div class="product-img"></div>
+                <h3>Product Name</h3>
+                <div class="price">₹0</div>
+                <button onclick="addToCart(this)">Add to Cart</button>
+            </div>
+
+            <div class="card">
+                <div class="product-img"></div>
+                <h3>Product Name</h3>
+                <div class="price">₹0</div>
+                <button onclick="addToCart(this)">Add to Cart</button>
+            </div>
+
+            <div class="card">
+                <div class="product-img"></div>
+                <h3>Product Name</h3>
+                <div class="price">₹0</div>
+                <button onclick="addToCart(this)">Add to Cart</button>
+            </div>
+
+            <div class="card">
+                <div class="product-img"></div>
+                <h3>Product Name</h3>
+                <div class="price">₹0</div>
+                <button onclick="addToCart(this)">Add to Cart</button>
+            </div>
+
+            <!-- ===== PRODUCT SET 2 (DUPLICATE FOR LOOPING) ===== -->
+            <div class="card">
+                <div class="product-img"></div>
+                <h3>Product Name</h3>
+                <div class="price">₹0</div>
+                <button onclick="addToCart(this)">Add to Cart</button>
+            </div>
+
+            <div class="card">
+                <div class="product-img"></div>
+                <h3>Product Name</h3>
+                <div class="price">₹0</div>
+                <button onclick="addToCart(this)">Add to Cart</button>
+            </div>
+
+            <div class="card">
+                <div class="product-img"></div>
+                <h3>Product Name</h3>
+                <div class="price">₹0</div>
+                <button onclick="addToCart(this)">Add to Cart</button>
+            </div>
+
+            <div class="card">
+                <div class="product-img"></div>
+                <h3>Product Name</h3>
+                <div class="price">₹0</div>
+                <button onclick="addToCart(this)">Add to Cart</button>
+            </div>
+
+            <div class="card">
+                <div class="product-img"></div>
+                <h3>Product Name</h3>
+                <div class="price">₹0</div>
+                <button onclick="addToCart(this)">Add to Cart</button>
+            </div>
+
+            <div class="card">
+                <div class="product-img"></div>
+                <h3>Product Name</h3>
+                <div class="price">₹0</div>
+                <button onclick="addToCart(this)">Add to Cart</button>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- CART SIDEBAR -->
+<div class="cart" id="cart">
+    <div class="cart-header">
+        <h3>Your Cart</h3>
+        <button class="close-cart" onclick="toggleCart()">✕</button>
+    </div>
+    <div id="cartItems"></div>
+    <div class="cart-total" id="cartTotal">Total: ₹0.00</div>
+</div>
+
+<!-- FOOTER -->
+<footer id="contact">
+    <p><strong>Contact Us</strong></p>
+
+    <p>
+        Instagram:
+        <a href="https://instagram.com/noor.ebhar" target="_blank">@noor.ebhar</a>
+        &nbsp; | &nbsp;
+        Email:
+        <a href="mailto:noore.e.bhar@email.com">noore.e.bhar@email.com</a>
+    </p>
+
+    <p style="color: var(--gold);">[ Address goes here ]</p>
+
+    <br>
+    <p>© 2026 NOORÉ Jewellery | All Rights Reserved</p>
+</footer>
+
+<!-- CLICK SOUND -->
+<audio id="addToCartSound">
+    <source src="click.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+function scrollToProducts() {
+    document.getElementById("products").scrollIntoView({ behavior: "smooth" });
+}
+
+function scrollToContact() {
+    document.getElementById("contact").scrollIntoView({ behavior: "smooth" });
+}
+
+function toggleCart() {
+    document.getElementById("cart").classList.toggle("active");
+}
+
+function addToCart(button) {
+    const card = button.closest(".card");
+    const productName = card.querySelector("h3").innerText;
+    const productPriceText = card.querySelector(".price").innerText;
+    const productPrice = parseFloat(productPriceText.replace("₹", ""));
+
+    const cartItems = document.getElementById("cartItems");
+
+    const item = document.createElement("div");
+    item.classList.add("cart-item");
+
+    const nameDiv = document.createElement("div");
+    nameDiv.classList.add("cart-item-name");
+    nameDiv.innerText = productName;
+
+    const priceDiv = document.createElement("div");
+    priceDiv.classList.add("cart-item-price");
+    priceDiv.innerText = `₹${productPrice}`;
+
+    const removeBtn = document.createElement("button");
+    removeBtn.classList.add("cart-item-remove");
+    removeBtn.innerText = "✕";
+
+    // ✅ FIX: stop bubbling ONLY here
+    removeBtn.onclick = function (e) {
+        e.stopPropagation();
+        item.remove();
+        updateCartTotal();
+    };
+
+    item.appendChild(nameDiv);
+    item.appendChild(priceDiv);
+    item.appendChild(removeBtn);
+    cartItems.appendChild(item);
+
+    const sound = document.getElementById("addToCartSound");
+    if (sound) {
+        sound.currentTime = 0;
+        sound.play();
+    }
+
+    button.classList.remove("pop");
+    void button.offsetWidth;
+    button.classList.add("pop");
+
+    toggleCart();
+    updateCartTotal();
+}
+
+function updateCartTotal() {
+    let total = 0;
+    document.querySelectorAll(".cart-item-price").forEach(price => {
+        total += parseFloat(price.innerText.replace("₹", ""));
+    });
+    document.getElementById("cartTotal").innerText = `Total: ₹${total}`;
+}
+
+/* ✅ ADD THIS — prevents inside clicks from closing cart */
+document.getElementById("cart").addEventListener("click", function (event) {
+    event.stopPropagation();
+});
+
+/* KEEP YOUR ORIGINAL OUTSIDE CLICK LOGIC */
+document.addEventListener("click", function (event) {
+    const cart = document.getElementById("cart");
+    const cartButton = event.target.closest('[onclick="toggleCart()"]');
+
+    if (
+        cart.classList.contains("active") &&
+        !cart.contains(event.target) &&
+        !cartButton
+    ) {
+        cart.classList.remove("active");
+    }
+});
+</script>
+
+</body>
+</html>
