@@ -23,12 +23,14 @@ body {
 
 /* HEADER */
 header {
+    width: 100%;
     background: var(--maroon);
     padding: 20px 8%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     color: white;
+    box-sizing: border-box;
 }
 
 .logo {
@@ -330,25 +332,45 @@ footer a:hover { color: white; }
     border-radius: 10px;
 }
 
-/* HERO + HEADER MOBILE ADJUSTMENTS */
+/* =========================================
+   HERO + HEADER + CART — MOBILE FIX (FINAL)
+   Matches collections.css behavior exactly
+========================================= */
+
+/* ===== MOBILE / SMALL TABLETS ===== */
 @media (max-width: 768px) {
 
-    /* HEADER NAV INLINE, NO WRAP */
+    /* ---------- HEADER (full-width, no white gaps) ---------- */
+    header {
+        width: 100%;
+        padding: 20px 5%;
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+
+    /* ---------- NAV (single line, no wrapping) ---------- */
     header nav {
         display: flex;
         flex-wrap: nowrap;
         justify-content: flex-end;
-        gap: 15px;
+        gap: 0px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
     header nav a {
         white-space: nowrap;
+        flex-shrink: 0;
         font-size: 14px;
     }
 
-    /* HERO TEXT */
+    /* ---------- HERO SIZE + TEXT POSITION ---------- */
+    .hero {
+        height: 80vh;   /* mobile-only hero height */
+    }
+
     .hero h1 {
-        margin-top: -30px; /* push up */
+        margin-top: -30px;
         font-size: 48px;
         text-align: center;
         line-height: 1.1em;
@@ -358,22 +380,60 @@ footer a:hover { color: white; }
         padding: 0 10px;
     }
 
-    /* CART MOBILE */
+    /* ---------- CART (mobile-safe width) ---------- */
     .cart {
         width: 90vw;
         max-width: 350px;
+        right: -90vw; /* fully hidden by default */
+    }
+
+    .cart.active {
+        right: 0;
+    }
+
+    /* ---------- MOBILE PRODUCT CARD SIZE ---------- */
+    .scroll-track .card {
+        min-width: 240px;   /* was 280px */
+        width: 240px;
+        padding: 16px;
+    }
+
+    .product-img {
+        margin-bottom: 12px;
+    }
+
+    .card h3 {
+        font-size: 14px;
+    }
+
+    .price {
+        font-size: 14px;
+    }
+
+    .card button {
+        padding: 7px 14px;
+        font-size: 13px;
+    }
+
+    /* ---------- SPACE BETWEEN "OUR BEST" AND PRODUCTS ---------- */
+    .products h2 {
+        margin-bottom: 25px;
     }
 }
 
+/* ===== VERY SMALL PHONES ===== */
 @media (max-width: 480px) {
+
+    header {
+        padding: 20px 3%;
+    }
+
+    header nav a {
+        font-size: 14px;
+    }
+
     .hero h1 {
         font-size: 40px;
         margin-top: -20px;
     }
-
-    header nav a {
-        font-size: 13px;
-        gap: 10px;
-    }
 }
-
