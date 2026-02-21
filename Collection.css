@@ -118,7 +118,7 @@ nav a:hover {
 }
 
 .category-banner {
-    height: var(--category-banner-height); /* adjustable via :root */
+    height: var(--category-banner-height);
     background-size: cover;
     background-position: center;
     display: flex;
@@ -126,12 +126,12 @@ nav a:hover {
     justify-content: center;
     text-align: center;
     position: relative;
-    margin-bottom: 20px; /* spacing below banner */
-    width: 100%;      /* full width */
-    left: 0;          /* reset offsets */
-    right: 0;
-    margin-left: 0;
-    margin-right: 0;
+    margin-bottom: 20px;
+
+    /* ===== VIEWPORT-CENTERED CONTROLLED WIDTH ===== */
+    width: 92vw;                         /* ← adjust width here */
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .category-banner h2 {
@@ -189,6 +189,7 @@ nav a:hover {
 
 .card h3 {
     font-weight: 500;
+    font-size: 17px; /* ↓ PRODUCT NAME SIZE REDUCED HERE */
 }
 
 .price {
@@ -356,7 +357,7 @@ footer a:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 88vh;             /* full viewport height */
+    height: 70vh;             /* full viewport height */
     text-align: center;
 }
 
@@ -395,9 +396,7 @@ footer a:hover {
 
     /* ===== CATEGORY BANNERS ===== */
     .category-banner {
-        height: 25vh;                       /* smaller banner height */
-        width: 100%;                         /* full width */
-        left: 0;
+        height: 18vh;                       /* smaller banner height */
         right: 0;
         margin-left: 0;
         margin-right: 0;
@@ -406,6 +405,10 @@ footer a:hover {
         display: flex;
         justify-content: center;
         align-items: center;
+        width: 92vw;                 /* control banner width on mobile */
+        left: 50%;
+        transform: translateX(-50%);
+        position: relative;
     }
 
     .category-banner h2 {
@@ -421,7 +424,7 @@ footer a:hover {
 
     /* ===== OFFERINGS HEADER ===== */
     .offerings-header {
-        height: 60vh;                   /* shorter for mobile */
+        height: 30vh;                   /* shorter for mobile */
         display: flex;
         justify-content: center;
         align-items: center;
