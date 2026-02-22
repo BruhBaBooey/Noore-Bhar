@@ -46,6 +46,8 @@ header {
     font-family: 'Playfair Display', serif;
     font-size: 28px;
     letter-spacing: 2px;
+    color: white;
+    text-decoration: none;
 }
 
 nav a {
