@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NOORÉ | Collections</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="Collection.css">
+<link rel="icon" href="logo.ico" type="image/x-icon">
+</head>
+
+<body>
+
+<!-- ===== HEADER (REUSED) ===== -->
+<header>
+    <a href="index.html" class="logo">NOORÉ</a>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="#contact" onclick="scrollToContact()">Contact</a>
+        <a href="#" onclick="toggleCart()">Cart</a>
+        <a href="#" id="loginBtn" class="nav-link login-button">Login</a>
+    </nav>
+</header>
+
+<!-- ======================================================
+     CATEGORY TEMPLATE WITH BANNERS
+====================================================== -->
+
+<!-- ===== OUR OFFERINGS HEADER ===== -->
+<section class="offerings-header">
+    <h2>Our Offerings</h2>
+</section>
+
+<!-- ===== BRACELETS ===== -->
+<section class="category-section">
+    <div class="category-banner" style="background-image: url('Background.png');">
+        <h2>Bracelets</h2>
+    </div>
+
+    <div class="product-grid">
+        <div class="card">
+            <div class="product-img"></div>
+            <h3>Product Name</h3>
+            <div class="price">₹0</div>
+            <button onclick="addToCart(this)">Add to Cart</button>
+        </div>
+        <div class="card">
+            <div class="product-img"></div>
+            <h3>Product Name</h3>
+            <div class="price">₹0</div>
+            <button onclick="addToCart(this)">Add to Cart</button>
+        </div>
+        <div class="card">
+            <div class="product-img"></div>
+            <h3>Product Name</h3>
+            <div class="price">₹0</div>
+            <button onclick="addToCart(this)">Add to Cart</button>
+        </div>
+        <div class="card">
+            <div class="product-img"></div>
+            <h3>Product Name</h3>
+            <div class="price">₹0</div>
+            <button onclick="addToCart(this)">Add to Cart</button>
+        </div>
+    </div>
+</section>
+
+<!-- ===== RINGS ===== -->
+<section class="category-section">
+    <div class="category-banner" style="background-image: url('Background.png');">
+        <h2>Rings</h2>
+    </div>
+
+    <div class="product-grid">
+        <div class="card"><div class="product-img"></div><h3>Product Name</h3><div class="price">₹0</div><button onclick="addToCart(this)">Add to Cart</button></div>
+        <div class="card"><div class="product-img"></div><h3>Product Name</h3><div class="price">₹0</div><button onclick="addToCart(this)">Add to Cart</button></div>
+        <div class="card"><div class="product-img"></div><h3>Product Name</h3><div class="price">₹0</div><button onclick="addToCart(this)">Add to Cart</button></div>
+        <div class="card"><div class="product-img"></div><h3>Product Name</h3><div class="price">₹0</div><button onclick="addToCart(this)">Add to Cart</button></div>
+    </div>
+</section>
+
+<!-- ===== ARM CUFFS ===== -->
+<section class="category-section">
+    <div class="category-banner" style="background-image: url('Background.png');">
+        <h2>Arm Cuffs</h2>
+    </div>
+
+    <div class="product-grid">
+        <div class="card"><div class="product-img"></div><h3>Product Name</h3><div class="price">₹0</div><button onclick="addToCart(this)">Add to Cart</button></div>
+        <div class="card"><div class="product-img"></div><h3>Product Name</h3><div class="price">₹0</div><button onclick="addToCart(this)">Add to Cart</button></div>
+        <div class="card"><div class="product-img"></div><h3>Product Name</h3><div class="price">₹0</div><button onclick="addToCart(this)">Add to Cart</button></div>
+        <div class="card"><div class="product-img"></div><h3>Product Name</h3><div class="price">₹0</div><button onclick="addToCart(this)">Add to Cart</button></div>
+    </div>
+</section>
+
+<!-- ===== EAR CUFFS ===== -->
+<section class="category-section">
+    <div class="category-banner" style="background-image: url('Background.png');">
+        <h2>Ear Cuffs</h2>
+    </div>
+
+    <div class="product-grid">
+        <div class="card"><div class="product-img"></div><h3>Product Name</h3><div class="price">₹0</div><button onclick="addToCart(this)">Add to Cart</button></div>
+        <div class="card"><div class="product-img"></div><h3>Product Name</h3><div class="price">₹0</div><button onclick="addToCart(this)">Add to Cart</button></div>
+        <div class="card"><div class="product-img"></div><h3>Product Name</h3><div class="price">₹0</div><button onclick="addToCart(this)">Add to Cart</button></div>
+        <div class="card"><div class="product-img"></div><h3>Product Name</h3><div class="price">₹0</div><button onclick="addToCart(this)">Add to Cart</button></div>
+    </div>
+</section>
+
+<!-- ===== CHAINS ===== -->
+<section class="category-section">
+    <div class="category-banner" style="background-image: url('Background.png');">
+        <h2>Chains</h2>
+    </div>
+
+    <div class="product-grid">
+        <div class="card"><div class="product-img"></div><h3>Product Name</h3><div class="price">₹0</div><button onclick="addToCart(this)">Add to Cart</button></div>
+        <div class="card"><div class="product-img"></div><h3>Product Name</h3><div class="price">₹0</div><button onclick="addToCart(this)">Add to Cart</button></div>
+        <div class="card"><div class="product-img"></div><h3>Product Name</h3><div class="price">₹0</div><button onclick="addToCart(this)">Add to Cart</button></div>
+        <div class="card"><div class="product-img"></div><h3>Product Name</h3><div class="price">₹0</div><button onclick="addToCart(this)">Add to Cart</button></div>
+    </div>
+</section>
+
+
+<!-- ===== CART SIDEBAR (REUSED) ===== -->
+<div class="cart" id="cart">
+    <div class="cart-header">
+        <h3>Your Cart</h3>
+        <button class="close-cart" onclick="toggleCart()">✕</button>
+    </div>
+    <div id="cartItems"></div>
+    <div class="cart-total" id="cartTotal">Total: ₹0.00</div>
+    <button id="placeOrderBtn" class="cart-place-order">Place Order</button>
+</div>
+
+<!-- ===== FOOTER (REUSED) ===== -->
+<footer id="contact">
+    <p><strong>Contact Us</strong></p>
+
+    <p>
+        Instagram:
+        <a href="https://instagram.com/noor.ebhar" target="_blank">@noor.ebhar</a>
+        &nbsp; | &nbsp;
+        Email:
+        <a href="mailto:noore.e.bhar@email.com">noore.e.bhar@email.com</a>
+    </p>
+
+    <p style="color: var(--gold);">[ Address goes here ]</p>
+
+    <br>
+    <p>We will wait for you Latika come back to shop again!</p>
+    
+    <br>
+    <p>© 2026 NOORÉ Jewellery | All Rights Reserved</p>
+
+</footer>
+
+<!-- Add to Cart sound -->
+<audio id="addToCartSound">
+    <source src="click.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Remove item sound -->
+<audio id="removeItemSound" src="trash.mp3" preload="auto">
+</audio>
+
+<script>
+/* ================================
+   CART PERSISTENCE (localStorage)
+================================ */
+
+const CART_STORAGE_KEY = 'noore_cart_items';
+
+// Save cart to localStorage
+function saveCartToStorage() {
+    const cartItems = document.querySelectorAll(".cart-item");
+    const items = Array.from(cartItems).map(item => ({
+        name: item.querySelector(".cart-item-name").innerText,
+        price: parseFloat(item.querySelector(".cart-item-price").innerText.replace("₹", ""))
+    }));
+    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
+}
+
+// Load cart from localStorage
+function loadCartFromStorage() {
+    const stored = localStorage.getItem(CART_STORAGE_KEY);
+    if (!stored) return [];
+    
+    try {
+        return JSON.parse(stored);
+    } catch (e) {
+        console.error("Error parsing cart from localStorage:", e);
+        return [];
+    }
+}
+
+// Render cart items from storage
+function renderCartFromStorage() {
+    const items = loadCartFromStorage();
+    const cartItems = document.getElementById("cartItems");
+    cartItems.innerHTML = "";
+    
+    items.forEach(item => {
+        const itemDiv = document.createElement("div");
+        itemDiv.classList.add("cart-item");
+        
+        const nameSpan = document.createElement("span");
+        nameSpan.classList.add("cart-item-name");
+        nameSpan.innerText = item.name;
+        
+        const priceSpan = document.createElement("span");
+        priceSpan.classList.add("cart-item-price");
+        priceSpan.innerText = "₹" + item.price;
+        
+        const removeBtn = document.createElement("button");
+        removeBtn.classList.add("remove-item");
+        removeBtn.innerText = "✕";
+        
+        removeBtn.onclick = (e) => {
+            e.stopPropagation();
+            
+            const removeSound = document.getElementById("removeItemSound");
+            if (removeSound) {
+                removeSound.volume = 0.10;
+                removeSound.playbackRate = 1.2;
+                removeSound.currentTime = 0;
+                removeSound.play();
+            }
+            
+            itemDiv.remove();
+            updateCartTotal();
+            saveCartToStorage();
+        };
+        
+        itemDiv.appendChild(nameSpan);
+        itemDiv.appendChild(priceSpan);
+        itemDiv.appendChild(removeBtn);
+        cartItems.appendChild(itemDiv);
+    });
+    
+    updateCartTotal();
+}
+
+/* ================================
+   SCROLL & CART FUNCTIONS
+================================ */
+
+function scrollToContact() {
+    document.getElementById("contact").scrollIntoView({ behavior: "smooth" });
+}
+
+function toggleCart() {
+    const cart = document.getElementById("cart");
+    cart.classList.toggle("active");
+}
+
+/* Add to cart – price is read from the card itself */
+function addToCart(button) {
+    const card = button.closest(".card");
+
+    // Read product name
+    const productName = card.querySelector("h3")?.innerText || "Product";
+
+    // Read price text and extract number
+    const priceText = card.querySelector(".price")?.innerText || "0";
+    const price = priceText.replace(/[^0-9.]/g, "");
+
+    const cartItems = document.getElementById("cartItems");
+
+    // Cart item container
+    const item = document.createElement("div");
+    item.classList.add("cart-item");
+
+    // Name
+    const nameSpan = document.createElement("span");
+    nameSpan.classList.add("cart-item-name");
+    nameSpan.innerText = productName;
+
+    // Price
+    const priceSpan = document.createElement("span");
+    priceSpan.classList.add("cart-item-price");
+    priceSpan.innerText = "₹" + price;
+
+    // Remove button
+    const removeBtn = document.createElement("button");
+    removeBtn.classList.add("remove-item");
+    removeBtn.innerText = "✕";
+
+    removeBtn.onclick = (e) => {
+        e.stopPropagation();
+
+        // Remove sound
+        const removeSound = document.getElementById("removeItemSound");
+        if (removeSound) {
+            removeSound.volume = 0.10;
+            removeSound.playbackRate = 1.2;
+            removeSound.currentTime = 0;
+            removeSound.play();
+        }
+
+        item.remove();
+        updateCartTotal();
+        saveCartToStorage();
+    };
+
+    item.appendChild(nameSpan);
+    item.appendChild(priceSpan);
+    item.appendChild(removeBtn);
+    cartItems.appendChild(item);
+
+    // Add-to-cart sound
+    const sound = document.getElementById("addToCartSound");
+    if (sound) {
+        sound.currentTime = 0;
+        sound.volume = 0.20;
+        sound.playbackRate = 1.5;
+        sound.play();
+    }
+
+    // Button pop animation
+    button.classList.remove("pop");
+    void button.offsetWidth;
+    button.classList.add("pop");
+
+    updateCartTotal();
+    saveCartToStorage();
+    toggleCart();
+}
+
+/* Update total price */
+function updateCartTotal() {
+    const cartItems = document.querySelectorAll(".cart-item");
+    let total = 0;
+
+    cartItems.forEach(item => {
+        const priceText = item.querySelector(".cart-item-price").innerText.replace("₹", "");
+        total += parseFloat(priceText) || 0;
+    });
+
+    document.getElementById("cartTotal").innerText = "Total: ₹" + total.toFixed(2);
+}
+
+/* Prevent clicks inside cart from closing it */
+document.getElementById("cart").addEventListener("click", function (event) {
+    event.stopPropagation();
+});
+
+/* Close cart when clicking outside */
+document.addEventListener("click", function (event) {
+    const cart = document.getElementById("cart");
+    const cartButton = event.target.closest('[onclick="toggleCart()"]');
+
+    if (
+        cart.classList.contains("active") &&
+        !cart.contains(event.target) &&
+        !cartButton
+    ) {
+        cart.classList.remove("active");
+    }
+});
+
+/* ================================
+   DRAG TO CLOSE CART (RIGHT DRAG)
+================================ */
+
+const cart = document.getElementById("cart");
+let isDragging = false;
+let startX = 0;
+
+/* Start drag */
+cart.addEventListener("mousedown", startDrag);
+cart.addEventListener("touchstart", startDrag, { passive: true });
+
+function startDrag(e) {
+    if (!cart.classList.contains("active")) return;
+
+    isDragging = true;
+    startX = e.touches ? e.touches[0].clientX : e.clientX;
+    cart.style.transition = "none";
+}
+
+/* Drag move */
+document.addEventListener("mousemove", dragMove);
+document.addEventListener("touchmove", dragMove, { passive: true });
+
+function dragMove(e) {
+    if (!isDragging) return;
+
+    const currentX = e.touches ? e.touches[0].clientX : e.clientX;
+    const delta = currentX - startX;
+
+    if (delta > 0) {
+        cart.style.right = `-${delta}px`;
+    }
+}
+
+/* End drag */
+document.addEventListener("mouseup", endDrag);
+document.addEventListener("touchend", endDrag);
+
+function endDrag() {
+    if (!isDragging) return;
+
+    isDragging = false;
+    cart.style.transition = "right 0.4s ease";
+
+    const draggedAmount = Math.abs(parseInt(cart.style.right) || 0);
+
+    if (draggedAmount > 120) {
+        cart.classList.remove("active");
+    }
+
+    cart.style.right = "";
+}
+
+/* ================================
+   LOGIN & PLACE ORDER BUTTONS
+================================ */
+
+const loginBtn = document.getElementById("loginBtn");
+const placeOrderBtn = document.getElementById("placeOrderBtn");
+
+/* Update login button based on session */
+async function updateLoginButton() {
+    try {
+        const res = await fetch("/api/me");
+        const data = await res.json();
+
+        if (data.user) {
+            const firstName = data.user.name.split(" ")[0];
+            loginBtn.textContent = firstName;
+            loginBtn.classList.add("logged-in");
+        } else {
+            loginBtn.textContent = "Login";
+            loginBtn.classList.remove("logged-in");
+        }
+    } catch (err) {
+        console.error("Login button update failed:", err);
+    }
+}
+
+// Check login status on page load
+updateLoginButton();
+
+// Load cart from localStorage on page load
+document.addEventListener("DOMContentLoaded", () => {
+    renderCartFromStorage();
+});
+
+loginBtn.addEventListener("click", () => {
+    if (loginBtn.classList.contains("logged-in")) return;
+
+    const currentPage = window.location.pathname;
+    window.location.href = `/auth/google?from=${encodeURIComponent(currentPage)}`;
+});
+
+placeOrderBtn.addEventListener("click", async () => {
+    const cartItemsElements = document.querySelectorAll(".cart-item");
+
+    if (cartItemsElements.length === 0) {
+        alert("🛒 Your cart is empty!");
+        return;
+    }
+
+    try {
+        // Check login status first
+        const res = await fetch("/api/me");
+        const userRes = await res.json();
+        
+        if (!userRes.user) {
+            alert("⚠️ You must login first!");
+            const currentPage = window.location.pathname;
+            window.location.href = `/auth/google?from=${encodeURIComponent(currentPage)}`;
+            return;
+        }
+
+        const cartItems = Array.from(cartItemsElements).map(item => ({
+            name: item.querySelector(".cart-item-name").innerText,
+            price: parseFloat(item.querySelector(".cart-item-price").innerText.replace("₹", ""))
+        }));
+
+        // Format products as comma-separated string
+        const products = cartItems.map(item => `${item.name} - ₹${item.price}`).join(', ');
+        const total = cartItems.reduce((sum, item) => sum + item.price, 0);
+
+        // Show UPI payment modal
+        showUPIPaymentModal(userRes.user.name, userRes.user.email, products, total);
+
+    } catch (err) {
+        console.error(err);
+        alert("⚠️ Order failed: " + err.message);
+    }
+});
+
+// UPI Payment Modal Function
+function showUPIPaymentModal(customer, email, products, total) {
+    // Create modal if it doesn't exist
+    let modal = document.getElementById('upiPaymentModal');
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'upiPaymentModal';
+        modal.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        `;
+        document.body.appendChild(modal);
+    }
+
+    // Generate UPI deep link with dynamic amount
+    const upiID = 'amitapoojary12345-1@oksbi';
+    const upiLink = `upi://pay?pa=${upiID}&pn=NOORÉ&am=${total}&cu=INR`;
+    const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(upiLink)}`;
+
+    // Show modal with payment details
+    modal.innerHTML = `
+        <div style="
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 350px;
+            width: 90%;
+        ">
+            <h3 style="color: var(--maroon); margin-bottom: 15px;">Pay via UPI</h3>
+            
+            <p style="font-size: 24px; font-weight: bold; color: var(--maroon); margin-bottom: 20px;">
+                ₹${total}
+            </p>
+            
+            <img src="${qrCodeUrl}" alt="UPI QR Code" style="
+                width: 200px;
+                height: 200px;
+                margin-bottom: 15px;
+                border: 1px solid #ddd;
+                border-radius: 10px;
+            ">
+            
+            <p style="font-size: 12px; color: #666; margin-bottom: 20px;">
+                Scan with any UPI app (Google Pay, PhonePe, Paytm)
+            </p>
+            
+            <p style="font-size: 11px; color: #999; margin-bottom: 20px;">
+                UPI ID: ${upiID}
+            </p>
+            
+            <button onclick="confirmUPIPayment('${customer}', '${email}', '${products}', ${total})" style="
+                width: 100%;
+                padding: 12px;
+                background: var(--maroon);
+                color: white;
+                border: none;
+                border-radius: 8px;
+                font-size: 16px;
+                cursor: pointer;
+                margin-bottom: 10px;
+            ">
+                ✅ I've Paid
+            </button>
+            
+            <button onclick="closeUPIModal()" style="
+                width: 100%;
+                padding: 10px;
+                background: #ddd;
+                color: #333;
+                border: none;
+                border-radius: 8px;
+                font-size: 14px;
+                cursor: pointer;
+            ">
+                Cancel
+            </button>
+        </div>
+    `;
+
+    modal.style.display = 'flex';
+}
+
+// Close UPI Modal
+function closeUPIModal() {
+    const modal = document.getElementById('upiPaymentModal');
+    if (modal) {
+        modal.style.display = 'none';
+    }
+}
+
+// Confirm Payment and Submit Order
+// Confirm Payment and Submit Order
+function confirmUPIPayment(customer, email, products, total) {
+    // Generate order ID
+    const orderId = 'NOOR-' + Date.now().toString().slice(-6);
+    
+    // Send to Google Sheets
+    fetch(
+        "https://script.google.com/macros/s/AKfycbwuFengUJYsg2HEeDlvaMJfmYBuKTY5OUDzziTT0t7N4yWkTKdJfTbgv782-aLjb0OC/exec",
+        {
+            method: "POST",
+            mode: "no-cors",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                customer: customer,
+                email: email || '',
+                products: products,
+                total: total
+            })
+        }
+    ).then(() => {
+        closeUPIModal();
+        showOrderConfirmationPopup(orderId, total);
+    }).catch((err) => {
+        console.error(err);
+        alert("⚠️ Order failed: " + err.message);
+    });
+}
+
+// Show Order Confirmation Popup
+function showOrderConfirmationPopup(orderId, total) {
+    // Create modal if it doesn't exist
+    let modal = document.getElementById('orderConfirmationModal');
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'orderConfirmationModal';
+        modal.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        `;
+        document.body.appendChild(modal);
+    }
+
+    // Show modal with order confirmation
+    modal.innerHTML = `
+        <div style="
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            animation: popIn 0.4s ease;
+        ">
+            <!-- Success Icon -->
+            <div style="
+                width: 80px;
+                height: 80px;
+                background: linear-gradient(135deg, #d4af37, #f0d878);
+                border-radius: 50%;
+                margin: 0 auto 20px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 40px;
+                color: white;
+                box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+            ">
+                ✓
+            </div>
+            
+            <h3 style="
+                color: var(--maroon);
+                font-family: 'Playfair Display', serif;
+                font-size: 28px;
+                margin-bottom: 10px;
+            ">
+                Order Placed!
+            </h3>
+            
+            <p style="color: #666; margin-bottom: 20px; font-size: 14px;">
+                Thank you for your order
+            </p>
+            
+            <!-- Order Details -->
+            <div style="
+                background: #f8f5f2;
+                padding: 20px;
+                border-radius: 12px;
+                margin-bottom: 25px;
+            ">
+                <p style="font-size: 13px; color: #999; margin-bottom: 5px;">
+                    Order ID
+                </p>
+                <p style="
+                    font-size: 18px;
+                    font-weight: 600;
+                    color: var(--maroon);
+                    margin-bottom: 15px;
+                ">
+                    ${orderId}
+                </p>
+                
+                <p style="font-size: 13px; color: #999; margin-bottom: 5px;">
+                    Total Amount
+                </p>
+                <p style="
+                    font-size: 24px;
+                    font-weight: 700;
+                    color: var(--maroon);
+                ">
+                    ₹${total}
+                </p>
+            </div>
+            
+            <!-- Next Steps -->
+            <div style="
+                text-align: left;
+                background: #fff9e6;
+                padding: 15px;
+                border-radius: 10px;
+                margin-bottom: 25px;
+                border-left: 4px solid var(--gold);
+            ">
+                <p style="
+                    font-size: 13px;
+                    color: #666;
+                    margin-bottom: 8px;
+                    font-weight: 500;
+                ">
+                    📸 Next Steps:
+                </p>
+                <p style="font-size: 12px; color: #888; margin-bottom: 5px;">
+                    1. Send payment screenshot
+                </p>
+                <p style="font-size: 12px; color: #888; margin-bottom: 5px;">
+                    2. We'll confirm within 24 hours
+                </p>
+                <p style="font-size: 12px; color: #888;">
+                    3. Shipping details will be shared
+                </p>
+            </div>
+            
+            <!-- Contact Info -->
+            <p style="font-size: 12px; color: #999; margin-bottom: 25px;">
+                Questions? DM us @noor.ebhar
+            </p>
+            
+            <!-- Done Button -->
+            <button onclick="closeOrderConfirmationModal()" style="
+                width: 100%;
+                padding: 14px;
+                background: var(--maroon);
+                color: white;
+                border: none;
+                border-radius: 10px;
+                font-size: 16px;
+                font-weight: 500;
+                cursor: pointer;
+                transition: 0.3s;
+            " onmouseover="this.style.background='var(--dark-maroon)'" 
+               onmouseout="this.style.background='var(--maroon)'">
+                Done
+            </button>
+        </div>
+        
+        <style>
+            @keyframes popIn {
+                0% { transform: scale(0.8); opacity: 0; }
+                100% { transform: scale(1); opacity: 1; }
+            }
+        </style>
+    `;
+
+    modal.style.display = 'flex';
+}
+
+// Close Order Confirmation Modal
+function closeOrderConfirmationModal() {
+    const modal = document.getElementById('orderConfirmationModal');
+    if (modal) {
+        modal.style.display = 'none';
+    }
+    // Clear cart
+    document.getElementById("cartItems").innerHTML = "";
+    updateCartTotal();
+    localStorage.removeItem(CART_STORAGE_KEY);
+}
+
+</script>
+</body>
+</html>
