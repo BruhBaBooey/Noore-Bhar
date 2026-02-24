@@ -1,29 +1,5 @@
 {
-  "functions": {
-    "api/*.js": {
-      "runtime": "nodejs18.x"
-    }
-  },
   "rewrites": [
-    {
-      "source": "/auth/google",
-      "destination": "/api/auth"
-    },
-    {
-      "source": "/auth/google/callback",
-      "destination": "/api/auth/callback"
-    },
-    {
-      "source": "/api/me",
-      "destination": "/api/me"
-    },
-    {
-      "source": "/api/order",
-      "destination": "/api/order"
-    },
-    {
-      "source": "/api/logout",
-      "destination": "/api/logout"
-    }
+    { "source": "/(.*)", "destination": "/api/$1" }
   ]
 }
