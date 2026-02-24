@@ -425,11 +425,9 @@ document.addEventListener("DOMContentLoaded", () => {
     renderCartFromStorage();
 });
 
-loginBtn.addEventListener("click", () => {
-    if (loginBtn.classList.contains("logged-in")) return;
-
-    const currentPage = window.location.pathname;
-    window.location.href = `/auth/google?from=${encodeURIComponent(currentPage)}`;
+loginBtn.addEventListener('click', () => {
+    if (loginBtn.classList.contains('logged-in')) return;
+    window.location.href = '/login.html';
 });
 
 placeOrderBtn.addEventListener("click", async () => {
