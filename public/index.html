@@ -400,23 +400,13 @@ const placeOrderBtn = document.getElementById("placeOrderBtn");
 
 /* Update login button based on session */
 async function updateLoginButton() {
-    try {
-        const res = await fetch("/api/me");
-        const data = await res.json();
-
-        if (data.user) {
-            const firstName = data.user.name.split(" ")[0];
-            loginBtn.textContent = firstName;
-            loginBtn.classList.add("logged-in");
-        } else {
-            loginBtn.textContent = "Login";
-            loginBtn.classList.remove("logged-in");
-        }
-    } catch (err) {
-        console.error("Login button update failed:", err);
+    const storedUser = localStorage.getItem('noore_user');
+    if (storedUser) {
+        const user = JSON.parse(storedUser);
+        loginBtn.textContent = user.name;
+        loginBtn.classList.add("logged-in");
     }
 }
-
 // Check login status on page load
 updateLoginButton();
 
@@ -425,9 +415,14 @@ document.addEventListener("DOMContentLoaded", () => {
     renderCartFromStorage();
 });
 
-loginBtn.addEventListener('click', () => {
-    if (loginBtn.classList.contains('logged-in')) return;
-    window.location.href = '/login.html';
+loginBtn.addEventListener("click", () => {
+    // Ask for name if not logged in
+    const name = prompt("Please enter your name:");
+    if (name) {
+        localStorage.setItem('noore_user', JSON.stringify({ name: name, email: '' }));
+        loginBtn.textContent = name;
+        loginBtn.classList.add("logged-in");
+    }
 });
 
 placeOrderBtn.addEventListener("click", async () => {
