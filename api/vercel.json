@@ -1,5 +1,14 @@
 {
+  "functions": {
+    "api/order.js": { "runtime": "nodejs18.x" },
+    "api/auth.js": { "runtime": "nodejs18.x" },
+    "api/me.js": { "runtime": "nodejs18.x" },
+    "api/auth/callback.js": { "runtime": "nodejs18.x" }
+  },
   "rewrites": [
-    { "source": "/(.*)", "destination": "/api/$1" }
+    { "source": "/auth/google", "destination": "/api/auth.js" },
+    { "source": "/auth/google/callback", "destination": "/api/auth/callback.js" },
+    { "source": "/api/me", "destination": "/api/me.js" },
+    { "source": "/api/order", "destination": "/api/order.js" }
   ]
 }

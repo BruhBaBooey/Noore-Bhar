@@ -1,24 +1,5 @@
 // C:\Noore\api\order.js
 
-const mongoose = require('mongoose');
-
-const mongoURI = process.env.MONGO_URI;
-
-let Order;
-if (mongoURI) {
-  mongoose.connect(mongoURI).catch(() => {});
-  
-  const orderSchema = new mongoose.Schema({
-    user: Object,
-    items: Array,
-    total: Number,
-    date: { type: Date, default: Date.now }
-  });
-  Order = mongoose.model('Order', orderSchema);
-}
-
-// C:\Noore\api\Order.js
-
 export default async function handler(req, res) {
   console.log('Order API called', req.method);
   
@@ -28,12 +9,8 @@ export default async function handler(req, res) {
 
   try {
     const { user, items, total, products } = req.body;
-    
     console.log('Order received:', { user, items, total, products });
 
-    // Order is sent to Google Sheets in the frontend code
-    // This API just confirms receipt
-    
     res.status(200).json({ success: true, message: 'Order placed!' });
   } catch (error) {
     console.error('Order error:', error);
