@@ -419,11 +419,14 @@ const loginBtn = document.getElementById("loginBtn");
 const placeOrderBtn = document.getElementById("placeOrderBtn");
 
 /* Update login button based on localStorage */
+/* Update login button based on localStorage */
 function updateLoginButton() {
     const storedUser = localStorage.getItem('noore_user');
     if (storedUser) {
         const user = JSON.parse(storedUser);
-        loginBtn.textContent = user.name;
+        // Get first name (everything before first space)
+        const firstName = user.name.split(' ')[0];
+        loginBtn.textContent = firstName;
         loginBtn.classList.add("logged-in");
     } else {
         loginBtn.textContent = "Login";
@@ -453,15 +456,18 @@ function saveUserDetails() {
         return;
     }
     
-    // Save to localStorage
+    // Save full name to localStorage
     localStorage.setItem('noore_user', JSON.stringify({ name, email, phone }));
     
-    // Update button
-    loginBtn.textContent = name;
+    // Get first name (everything before first space)
+    const firstName = name.split(' ')[0];
+    
+    // Update button with first name only
+    loginBtn.textContent = firstName;
     loginBtn.classList.add('logged-in');
     
     closeLoginModal();
-    showToast('Welcome, ' + name + '!');
+    showToast('Welcome, ' + firstName + '!');
 }
 
 // Handle login button click
