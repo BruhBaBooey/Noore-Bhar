@@ -17,23 +17,23 @@ if (mongoURI) {
   Order = mongoose.model('Order', orderSchema);
 }
 
+// C:\Noore\api\Order.js
+
 export default async function handler(req, res) {
+  console.log('Order API called', req.method);
+  
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Method not allowed' });
   }
 
   try {
-    const { user, items, total } = req.body;
+    const { user, items, total, products } = req.body;
     
-    if (!user || !items || !total) {
-      return res.status(400).json({ message: 'Missing required fields' });
-    }
+    console.log('Order received:', { user, items, total, products });
 
-    if (Order) {
-      const newOrder = new Order({ user, items, total });
-      await newOrder.save();
-    }
-
+    // Order is sent to Google Sheets in the frontend code
+    // This API just confirms receipt
+    
     res.status(200).json({ success: true, message: 'Order placed!' });
   } catch (error) {
     console.error('Order error:', error);
