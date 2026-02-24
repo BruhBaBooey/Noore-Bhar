@@ -382,6 +382,11 @@ header nav .login-button.logged-in {
     background: var(--dark-maroon);
 }
 
+#toast {
+    background-color: var(--maroon) !important;
+    color: white !important;
+}
+
 /* =========================================
    HERO + HEADER + CART — MOBILE FIX (FINAL)
    Matches collections.css behavior exactly

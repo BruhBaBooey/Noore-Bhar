@@ -560,6 +560,11 @@ header nav .login-button.logged-in {
 
 }
 
+#toast {
+    background-color: var(--maroon) !important;
+    color: white !important;
+}
+
 /* ===== VERY SMALL PHONES ===== */
 @media (max-width: 480px) {
 
