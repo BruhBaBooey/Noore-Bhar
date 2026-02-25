@@ -59,7 +59,7 @@ nav a:hover {
     position: relative;
     overflow: hidden;
     background: linear-gradient(rgba(90,15,28,0.75), rgba(90,15,28,0.75)),
-        url('Background.png') center / cover no-repeat;
+        url('assets/Background.png') center / cover no-repeat;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -70,7 +70,7 @@ nav a:hover {
 .hero-bg {
     position: absolute;
     inset: 0;
-    background: url('Background.png') center / cover no-repeat;
+    background: url('assets/Background.png') center / cover no-repeat;
     filter: brightness(0.35);
     z-index: 1;
 }
