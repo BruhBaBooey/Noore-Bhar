@@ -40,105 +40,128 @@
 </div>
 <section class="hero">
     <div>
-        <h1>Luxury Redefined</h1>
-        <button onclick="scrollToProducts()">Explore</button>
+        <a href="Collection.html" style="text-decoration: none; color:white;"><h1>Luxury Redefined</h1></a>
+        <a href="Collection.html" style="text-decoration: none;"><button>Explore</button></a> <!-- add (  onclick="scrollToProducts()  ) when adding scrolling products-->
     </div>
 </section>
 
-<section class="products" id="products">
+<section class="products hidden" id="products"> <!-- add this next ( hidden) to class products to hide it also see hero -->
     <h2>Our Best</h2>
 
     <div class="product-scroll-wrapper">
-        <div class="scroll-track">
+        <div class="scroll-track auto-scroll">
 
             <!-- ===== PRODUCT SET 1 ===== -->
             <div class="card">
                 <img src="assets/products/nora-leigh.jfif" alt="Product Name" class="product-img">
                 <h3>Nora Leigh</h3>
-                <div class="price">₹---</div>
+                <div class="price">₹0</div>
                 <button onclick="addToCart(this)">Add to Cart</button>
             </div>
 
             <div class="card">
                 <img src="assets/products/ivy-blink.jfif" alt="Product Name" class="product-img">
                 <h3>Ivy Blink</h3>
-                <div class="price">₹---</div>
+                <div class="price">₹0</div>
                 <button onclick="addToCart(this)">Add to Cart</button>
             </div>
 
             <div class="card">
                 <img src="assets/products/vera-lynn.jfif" alt="Product Name" class="product-img">
                 <h3>Vera Lynn</h3>
-                <div class="price">₹---</div>
+                <div class="price">₹0</div>
                 <button onclick="addToCart(this)">Add to Cart</button>
             </div>
 
             <div class="card">
                 <img src="assets/products/sadie-lou.jfif" alt="Product Name" class="product-img">
                 <h3>Sadie Lou</h3>
-                <div class="price">₹---</div>
+                <div class="price">₹0</div>
                 <button onclick="addToCart(this)">Add to Cart</button>
             </div>
 
             <div class="card">
                 <img src="assets/products/comingsoon.png" alt="Product Name" class="product-img">
                 <h3>Coming Soon...</h3>
-                <div class="price">₹---</div>
+                <div class="price">₹0</div>
                 <button onclick="addToCart(this)">Add to Cart</button>
             </div>
 
             <div class="card">
                 <img src="assets/products/comingsoon.png" alt="Product Name" class="product-img">
                 <h3>Coming Soon...</h3>
-                <div class="price">₹---</div>
+                <div class="price">₹0</div>
                 <button onclick="addToCart(this)">Add to Cart</button>
             </div>
             <!-- ===== PRODUCT SET 2 (DUPLICATE FOR LOOPING) ===== -->
             <div class="card">
                 <img src="assets/products/nora-leigh.jfif" alt="Product Name" class="product-img">
                 <h3>Nora Leigh</h3>
-                <div class="price">₹---</div>
+                <div class="price">₹0</div>
                 <button onclick="addToCart(this)">Add to Cart</button>
             </div>
 
             <div class="card">
                 <img src="assets/products/ivy-blink.jfif" alt="Product Name" class="product-img">
                 <h3>Ivy Blink</h3>
-                <div class="price">₹---</div>
+                <div class="price">₹0</div>
                 <button onclick="addToCart(this)">Add to Cart</button>
             </div>
 
             <div class="card">
                 <img src="assets/products/vera-lynn.jfif" alt="Product Name" class="product-img">
                 <h3>Vera Lynn</h3>
-                <div class="price">₹---</div>
+                <div class="price">₹0</div>
                 <button onclick="addToCart(this)">Add to Cart</button>
             </div>
 
             <div class="card">
                 <img src="assets/products/sadie-lou.jfif" alt="Product Name" class="product-img">
                 <h3>Sadie Lou</h3>
-                <div class="price">₹---</div>
+                <div class="price">₹0</div>
                 <button onclick="addToCart(this)">Add to Cart</button>
             </div>
 
             <div class="card">
                 <img src="assets/products/comingsoon.png" alt="Product Name" class="product-img">
                 <h3>Coming Soon...</h3>
-                <div class="price">₹---</div>
+                <div class="price">₹0</div>
                 <button onclick="addToCart(this)">Add to Cart</button>
             </div>
 
             <div class="card">
                 <img src="assets/products/comingsoon.png" alt="Product Name" class="product-img">
                 <h3>Coming Soon...</h3>
-                <div class="price">₹---</div>
+                <div class="price">₹0</div>
                 <button onclick="addToCart(this)">Add to Cart</button>
             </div>
 
         </div>
     </div>
 </section>
+
+<!-- FOOTER -->
+<footer id="contact">
+    <p><strong>Contact Us</strong></p>
+
+    <p>
+        Instagram:
+        <a href="https://instagram.com/noor.ebhar" target="_blank">@noor.ebhar</a>
+        &nbsp; | &nbsp;
+        Email:
+        <a href="mailto:noore.e.bhar@email.com">noore.e.bhar@email.com</a>
+    </p>
+
+    <p style="color: var(--gold);">[ Address goes here ]</p>
+
+    <br>
+    <p>We will wait for you Latika come back to shop again!</p>
+
+    <br>
+    <p>© 2026 NOORÉ Jewellery | All Rights Reserved</p>
+
+</footer>
+
 <!-- LOGOUT CONFIRMATION MODAL -->
 <div id="logoutModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); z-index:10001; justify-content:center; align-items:center;">
     <div style="background:white; padding:30px; border-radius:15px; max-width:350px; width:90%; text-align:center;">
@@ -163,27 +186,6 @@
     <button id="placeOrderBtn" class="cart-place-order">Place Order</button>
 </div>
 
-<!-- FOOTER -->
-<footer id="contact">
-    <p><strong>Contact Us</strong></p>
-
-    <p>
-        Instagram:
-        <a href="https://instagram.com/noor.ebhar" target="_blank">@noor.ebhar</a>
-        &nbsp; | &nbsp;
-        Email:
-        <a href="mailto:noore.e.bhar@email.com">noore.e.bhar@email.com</a>
-    </p>
-
-    <p style="color: var(--gold);">[ Address goes here ]</p>
-
-    <br>
-    <p>We will wait for you Latika come back to shop again!</p>
-
-    <br>
-    <p>© 2026 NOORÉ Jewellery | All Rights Reserved</p>
-
-</footer>
 
 <!-- CLICK SOUND -->
 <audio id="addToCartSound">
@@ -452,7 +454,7 @@ function saveUserDetails() {
     const phone = document.getElementById('userPhone').value.trim();
     
     if (!name || !email || !phone) {
-        alert('Please fill in all fields');
+        showToast('Please fill in all fields');
         return;
     }
     
@@ -546,17 +548,17 @@ placeOrderBtn.addEventListener("click", async () => {
     const cartItemsElements = document.querySelectorAll(".cart-item");
 
     if (cartItemsElements.length === 0) {
-        alert("🛒 Your cart is empty!");
-        return;
-    }
+    showToast('🛒 Your cart is empty!');
+    return;
+}
 
     // Get user from localStorage
     const storedUser = localStorage.getItem('noore_user');
     if (!storedUser) {
-        alert('⚠️ Please login first!');
-        openLoginModal();
-        return;
-    }
+    showToast('⚠️ Please login first!');
+    openLoginModal();
+    return;
+}
 
     const user = JSON.parse(storedUser);
 
@@ -647,7 +649,7 @@ function confirmUPIPayment(customer, email, products, total) {
         showOrderConfirmationPopup(orderId, total);
     }).catch((err) => {
         console.error(err);
-        alert("Order failed: " + err.message);
+        showToast("Order failed: " + err.message);
     });
 }
 // Show Order Confirmation Popup
