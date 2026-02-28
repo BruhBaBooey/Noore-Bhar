@@ -341,7 +341,7 @@ nav a:hover {
 .browse-wrapper {
     position: relative;
     display: inline-block;
-    margin-left: 25px;
+    margin-left: 0x;
 }
 
 /* Browse Button */
@@ -366,7 +366,7 @@ nav a:hover {
 .browse-menu {
     display: none;
     position: absolute;
-    left: 50%;
+    left: 55%;
     transform: translateX(-50%);
     background: var(--maroon);
     min-width: 140px;
@@ -383,7 +383,10 @@ nav a:hover {
 
 .browse-menu a {
     display: block;
-    padding: 10px 20px;
+    padding-top: 10px;
+    padding-right:  20px;
+    padding-bottom: 6px;
+    padding-left:   0px;
     color: white;
     text-decoration: none;
     font-family: 'Poppins', sans-serif;
@@ -648,7 +651,7 @@ footer {
     color: white;
     padding: 20px;
     text-align: center;
-    margin-top: 60px;
+    margin-top: 30px;
     box-sizing: border-box;
 }
 
