@@ -1006,7 +1006,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Place Order button click
 placeOrderBtn.addEventListener("click", async () => {
-    // Only get items from #cartItems (exclude freebies container)
     const cartItemsElements = document.querySelectorAll("#cartItems .cart-item");
 
     if (cartItemsElements.length === 0) {
@@ -1014,7 +1013,6 @@ placeOrderBtn.addEventListener("click", async () => {
         return;
     }
 
-    // Get user from localStorage
     const storedUser = localStorage.getItem('noore_user');
     if (!storedUser) {
         showToast('⚠️ Please login first!');
@@ -1024,21 +1022,44 @@ placeOrderBtn.addEventListener("click", async () => {
 
     const user = JSON.parse(storedUser);
 
-    // Filter out freebies (only get items from #cartItems)
+    // Create products array
     const cartItems = Array.from(cartItemsElements).map(item => ({
         name: item.querySelector(".cart-item-name").innerText,
         price: parseFloat(item.querySelector(".cart-item-price").innerText.replace("₹", ""))
     }));
 
-    const products = cartItems.map(item => `${item.name} - ₹${item.price}`).join(', ');
-    const total = cartItems.reduce((sum, item) => sum + item.price, 0);
+    // Get Product Total from screen
+    const productTotalText = document.getElementById("productTotalDisplay").innerText.replace("₹", "");
+    const productTotal = parseFloat(productTotalText);
+    
+    // Calculate Grand Total (Product + Shipping)
+    const grandTotal = productTotal + 60;
 
-    // Show UPI payment modal
-    showUPIPaymentModal(user.name, user.email, products, total);
+    // Create product list string for display
+    let productList = "";
+    cartItems.forEach(item => {
+        productList += item.name + " - ₹" + item.price + ", ";
+    });
+    // Remove last comma
+    productList = productList.slice(0, -2);
+
+    // Store data globally
+    window.pendingOrder = {
+        customer: user.name,
+        email: user.email,
+        products: cartItems, // Store as array, not JSON string
+        productList: productList,
+        total: grandTotal
+    };
+
+    // Show UPI modal
+    showUPIPaymentModal();
 });
 
-// UPI Payment Modal Function
-function showUPIPaymentModal(customer, email, products, total) {
+// UPI Modal Function
+function showUPIPaymentModal() {
+    const orderData = window.pendingOrder;
+    
     let modal = document.getElementById('upiPaymentModal');
     if (!modal) {
         modal = document.createElement('div');
@@ -1059,17 +1080,18 @@ function showUPIPaymentModal(customer, email, products, total) {
     }
 
     const upiID = 'amitapoojary12345-1@oksbi';
-    const upiLink = `upi://pay?pa=${upiID}&pn=NOORÉ&am=${total}&cu=INR`;
+    const amount = orderData.total;
+    const upiLink = `upi://pay?pa=${upiID}&pn=NOORE&am=${amount}&cu=INR`;
     const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(upiLink)}`;
 
     modal.innerHTML = `
         <div style="background: white; padding: 30px; border-radius: 15px; text-align: center; max-width: 350px; width: 90%;">
             <h3 style="color: var(--maroon); margin-bottom: 15px;">Pay via UPI</h3>
-            <p style="font-size: 24px; font-weight: bold; color: var(--maroon); margin-bottom: 20px;">₹${total}</p>
+            <p style="font-size: 24px; font-weight: bold; color: var(--maroon); margin-bottom: 20px;">₹${amount}</p>
             <img src="${qrCodeUrl}" alt="UPI QR Code" style="width: 200px; height: 200px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 10px;">
-            <p style="font-size: 12px; color: #666; margin-bottom: 20px;">Scan with any UPI app (Google Pay, PhonePe, Paytm)</p>
+            <p style="font-size: 12px; color: #666; margin-bottom: 20px;">Scan with any UPI app</p>
             <p style="font-size: 11px; color: #999; margin-bottom: 20px;">UPI ID: ${upiID}</p>
-            <button onclick="confirmUPIPayment('${customer}', '${email}', '${products}', ${total})" style="width: 100%; padding: 12px; background: var(--maroon); color: white; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; margin-bottom: 10px;">I've Paid ✅</button>
+            <button onclick="confirmUPIPayment()" style="width: 100%; padding: 12px; background: var(--maroon); color: white; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; margin-bottom: 10px;">I've Paid ✅</button>
             <button onclick="closeUPIModal()" style="width: 100%; padding: 10px; background: #ddd; color: #333; border: none; border-radius: 8px; font-size: 14px; cursor: pointer;">Cancel</button>
         </div>
     `;
@@ -1077,16 +1099,9 @@ function showUPIPaymentModal(customer, email, products, total) {
     modal.style.display = 'flex';
 }
 
-// Close UPI Modal
-function closeUPIModal() {
-    const modal = document.getElementById('upiPaymentModal');
-    if (modal) {
-        modal.style.display = 'none';
-    }
-}
-
-// Confirm Payment and Submit Order
-function confirmUPIPayment(customer, email, products, total) {
+// Confirm Payment Function
+function confirmUPIPayment() {
+    const orderData = window.pendingOrder;
     const orderId = 'NOOR-' + Date.now().toString().slice(-6);
     
     let phone = '';
@@ -1095,27 +1110,39 @@ function confirmUPIPayment(customer, email, products, total) {
         phone = JSON.parse(storedUser).phone || '';
     }
     
+    // Convert products array to JSON string
+    const productsJSON = JSON.stringify(orderData.products);
+    
+    const formData = new URLSearchParams();
+    formData.append('customer', orderData.customer);
+    formData.append('email', orderData.email);
+    formData.append('phone', phone);
+    formData.append('products', productsJSON);
+    formData.append('productList', orderData.productList);
+    formData.append('total', orderData.total);
+
     fetch(
         "https://script.google.com/macros/s/AKfycbwOj4kVPk6oQ2T8aQ0FPqrPFIzHCohKxRQyJgzEBsChCQxGB56HxAn3aI7X0yZFbaUA/exec",
         {
             method: "POST",
             mode: "no-cors",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                customer: customer,
-                email: email || '',
-                phone: phone,
-                products: products,
-                total: total
-            })
+            body: formData
         }
     ).then(() => {
         closeUPIModal();
-        showOrderConfirmationPopup(orderId, total);
+        showOrderConfirmationPopup(orderId, orderData.total);
     }).catch((err) => {
         console.error(err);
         showToast("Order failed: " + err.message);
     });
+}
+
+// Close UPI Modal
+function closeUPIModal() {
+    const modal = document.getElementById('upiPaymentModal');
+    if (modal) {
+        modal.style.display = 'none';
+    }
 }
 
 // Show Order Confirmation Popup
