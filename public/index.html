@@ -12,14 +12,19 @@
 <link rel="stylesheet" href="Noore.css">
 <link rel="icon" href="assets/logo.ico" type="image/x-icon">
 </head>
-<body>
+<body>  
+
+<!-- Image Lightbox -->
+<div class="lightbox" id="lightbox">
+    <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+    <img class="lightbox-img" id="lightboxImg" src="" alt="Product Image">
+</div>
 
 <header>
     <a href="index.html" class="logo">NOORÉ</a>
     <nav>
         <a href="Collection.html">Collections</a>
-        <a href="#contact" onclick="scrollToContact()">Contact</a>
-        <a href="#" onclick="toggleCart()">Cart</a>
+        <!-- <a href="#" onclick="toggleCart()">Cart</a> ( uncomment this when unhidden scrolling products )-->
         <a href="#" id="loginBtn" class="nav-link login-button" onclick="handleLoginClick()">Login</a>
     </nav>
 </header>
@@ -149,17 +154,24 @@
         <a href="https://instagram.com/noor.ebhar" target="_blank">@noor.ebhar</a>
         &nbsp; | &nbsp;
         Email:
-        <a href="mailto:noore.e.bhar@email.com">noore.e.bhar@email.com</a>
+        <a href="mailto:noor.e.bhar.brand@gmail.com">noor.e.bhar.brand@gmail.com</a>
     </p>
-
-    <p style="color: var(--gold);">[ Address goes here ]</p>
-
+    <p>
+    Phone:
+    <a href="tel:+919112458918">+91 91124 58918</a>
+    &nbsp;|&nbsp;
+    <a href="tel:+918424850458">+91 84248 50458</a>
+    </p>
     <br>
-    <p>We will wait for you Latika come back to shop again!</p>
-
+    <p>We will wait for you Latika...</p>
+    
     <br>
     <p>© 2026 NOORÉ Jewellery | All Rights Reserved</p>
 
+    <!-- Footer Art -->
+    <div class="footer-art">
+        <img src="assets/noore-art2.png" alt="NOORÉ Art">
+    </div>
 </footer>
 
 <!-- LOGOUT CONFIRMATION MODAL -->
@@ -175,17 +187,43 @@
 <!-- TOAST NOTIFICATION -->
 <div id="toast" style="display:none; position:fixed; bottom:30px; left:50%; transform:translateX(-50%); background:var(--maroon); color:white; padding:15px 30px; border-radius:10px; z-index:10002; font-size:14px; box-shadow:0 5px 20px rgba(0,0,0,0.3);">
 </div>
+
 <!-- CART SIDEBAR -->
 <div class="cart" id="cart">
     <div class="cart-header">
         <h3>Your Cart</h3>
         <button class="close-cart" onclick="toggleCart()">✕</button>
     </div>
+    
+    <!-- Regular Items -->
     <div id="cartItems"></div>
-    <div class="cart-total" id="cartTotal">Total: ₹0.00</div>
+    
+    <!-- Freebies Container -->
+    <div id="freebiesContainer"></div>
+    
+    <!-- Price Breakdown -->
+    <div class="cart-summary">
+        <div class="summary-row">
+            <span>Product Total</span>
+            <span id="productTotalDisplay">₹0</span>
+        </div>
+        <div class="summary-row">
+            <span>Shipping</span>
+            <span>₹60</span>
+        </div>
+        <div class="summary-row total-row">
+            <span>Grand Total</span>
+            <span id="grandTotalDisplay">₹60</span>
+        </div>
+    </div>
+    
+    <!-- Warning Message -->
+    <div id="minOrderWarning" class="warning-msg">
+        ⚠️ Minimum order amount is ₹200
+    </div>
+    
     <button id="placeOrderBtn" class="cart-place-order">Place Order</button>
 </div>
-
 
 <!-- CLICK SOUND -->
 <audio id="addToCartSound">
@@ -202,9 +240,12 @@
 
 const CART_STORAGE_KEY = 'noore_cart_items';
 
-// Save cart to localStorage
+/* ================================
+   BLOCK 2: SAVE, LOAD & RENDER
+================================ */
+
 function saveCartToStorage() {
-    const cartItems = document.querySelectorAll(".cart-item");
+    const cartItems = document.querySelectorAll("#cartItems .cart-item");
     const items = Array.from(cartItems).map(item => ({
         name: item.querySelector(".cart-item-name").innerText,
         price: parseFloat(item.querySelector(".cart-item-price").innerText.replace("₹", ""))
@@ -212,20 +253,17 @@ function saveCartToStorage() {
     localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
 }
 
-// Load cart from localStorage
 function loadCartFromStorage() {
     const stored = localStorage.getItem(CART_STORAGE_KEY);
     if (!stored) return [];
-    
     try {
         return JSON.parse(stored);
     } catch (e) {
-        console.error("Error parsing cart from localStorage:", e);
+        console.error("Error parsing cart:", e);
         return [];
     }
 }
 
-// Render cart items from storage
 function renderCartFromStorage() {
     const items = loadCartFromStorage();
     const cartItems = document.getElementById("cartItems");
@@ -241,14 +279,18 @@ function renderCartFromStorage() {
         
         const priceDiv = document.createElement("div");
         priceDiv.classList.add("cart-item-price");
-        priceDiv.innerText = `₹${item.price}`;
+        priceDiv.innerText = "₹" + item.price;
         
         const removeBtn = document.createElement("button");
         removeBtn.classList.add("cart-item-remove");
         removeBtn.innerText = "✕";
         
-        removeBtn.onclick = function (e) {
+        removeBtn.onclick = function(e) {
             e.stopPropagation();
+            if (itemDiv.classList.contains("freebie-item")) {
+                showToast("Cannot remove Freebie");
+                return;
+            }
             const removeSound = document.getElementById("removeItemSound");
             if (removeSound) {
                 removeSound.volume = 0.10;
@@ -257,7 +299,7 @@ function renderCartFromStorage() {
                 removeSound.play();
             }
             itemDiv.remove();
-            updateCartTotal();
+            updateCartTotals();
             saveCartToStorage();
         };
         
@@ -267,15 +309,12 @@ function renderCartFromStorage() {
         cartItems.appendChild(itemDiv);
     });
     
-    updateCartTotal();
+    updateCartTotals();
 }
+
 /* ================================
    SCROLL & CART FUNCTIONS
 ================================ */
-
-function scrollToProducts() {
-    document.getElementById("products").scrollIntoView({ behavior: "smooth" });
-}
 
 function scrollToContact() {
     document.getElementById("contact").scrollIntoView({ behavior: "smooth" });
@@ -284,6 +323,10 @@ function scrollToContact() {
 function toggleCart() {
     document.getElementById("cart").classList.toggle("active");
 }
+
+/* ================================
+   BLOCK 3: ADD TO CART
+================================ */
 
 function addToCart(button) {
     const card = button.closest(".card");
@@ -302,14 +345,18 @@ function addToCart(button) {
 
     const priceDiv = document.createElement("div");
     priceDiv.classList.add("cart-item-price");
-    priceDiv.innerText = `₹${productPrice}`;
+    priceDiv.innerText = "₹" + productPrice;
 
     const removeBtn = document.createElement("button");
     removeBtn.classList.add("cart-item-remove");
     removeBtn.innerText = "✕";
 
-    removeBtn.onclick = function (e) {
+    removeBtn.onclick = function(e) {
         e.stopPropagation();
+        if (item.classList.contains("freebie-item")) {
+            showToast("Cannot remove Freebie");
+            return;
+        }
         const removeSound = document.getElementById("removeItemSound");
         if (removeSound) {
             removeSound.volume = 0.10;
@@ -318,7 +365,7 @@ function addToCart(button) {
             removeSound.play();
         }
         item.remove();
-        updateCartTotal();
+        updateCartTotals();
         saveCartToStorage();
     };
 
@@ -340,21 +387,86 @@ function addToCart(button) {
     button.classList.add("pop");
 
     toggleCart();
-    updateCartTotal();
+    updateCartTotals();
     saveCartToStorage();
 }
 
-function updateCartTotal() {
-    let total = 0;
-    document.querySelectorAll(".cart-item-price").forEach(price => {
-        total += parseFloat(price.innerText.replace("₹", ""));
+/* ================================
+   BLOCK 1: CONSTANTS & MAIN FUNCTION
+================================ */
+
+const MIN_ORDER_AMOUNT = 200;
+const SHIPPING_COST = 60;
+
+function updateCartTotals() {
+    // 1. Calculate Product Total
+    let productTotal = 0;
+    const cartItems = document.querySelectorAll("#cartItems .cart-item");
+    
+    cartItems.forEach(item => {
+        const priceText = item.querySelector(".cart-item-price").innerText.replace("₹", "");
+        productTotal += parseFloat(priceText);
     });
-    document.getElementById("cartTotal").innerText = `Total: ₹${total}`;
+
+    // 2. Calculate Freebies Logic
+    let freebieCount = 0;
+    if (productTotal >= 200) {
+        freebieCount = Math.floor((productTotal - 100) / 100);
+    }
+
+    // 3. Render Freebies (With x2, x3 display)
+    const container = document.getElementById("freebiesContainer");
+    
+    if (freebieCount > 0) {
+        // Check if freebie row already exists
+        let existingFreebie = container.querySelector(".freebie-item");
+        
+        if (!existingFreebie) {
+            // Create new freebie row
+            const freebieDiv = document.createElement("div");
+            freebieDiv.classList.add("cart-item", "freebie-item");
+            freebieDiv.innerHTML = `
+                <div class="cart-item-name freebie-label">
+                    <span>🎁</span> Freebie x${freebieCount}
+                </div>
+                <div class="cart-item-price">₹0</div>
+            `;
+            container.appendChild(freebieDiv);
+        } else {
+            // Update existing freebie row count
+            existingFreebie.querySelector(".freebie-label").innerHTML = `<span>🎁</span> Freebie x${freebieCount}`;
+        }
+    } else {
+        // No freebies, clear container
+        container.innerHTML = "";
+    }
+
+    // 4. Calculate Grand Total
+    const grandTotal = productTotal + SHIPPING_COST;
+
+    // 5. Update UI Text
+    document.getElementById("productTotalDisplay").innerText = "₹" + productTotal;
+    document.getElementById("grandTotalDisplay").innerText = "₹" + grandTotal;
+
+    // 6. Check Minimum Order
+    const warningEl = document.getElementById("minOrderWarning");
+    const placeOrderBtn = document.getElementById("placeOrderBtn");
+
+    if (productTotal < MIN_ORDER_AMOUNT) {
+        warningEl.style.display = "block";
+        warningEl.innerText = "Minimum order amount is ₹200";
+        placeOrderBtn.disabled = true;
+        placeOrderBtn.innerText = "Place Order"; // Always says Place Order
+    } else {
+        warningEl.style.display = "none";
+        placeOrderBtn.disabled = false;
+        placeOrderBtn.innerText = "Place Order";
+    }
 }
 
 /* Prevent inside clicks from closing cart */
 document.getElementById("cart").addEventListener("click", function (event) {
-    event.stopPropagation();
+event.stopPropagation();
 });
 
 /* Outside click closes cart */
@@ -370,6 +482,7 @@ document.addEventListener("click", function (event) {
         cart.classList.remove("active");
     }
 });
+
 /* ================================
    DRAG TO CLOSE CART
 ================================ */
@@ -413,6 +526,7 @@ function endDrag() {
     }
     cart.style.right = "";
 }
+
 /* ================================
    LOGIN & PLACE ORDER BUTTONS
 ================================ */
@@ -420,7 +534,6 @@ function endDrag() {
 const loginBtn = document.getElementById("loginBtn");
 const placeOrderBtn = document.getElementById("placeOrderBtn");
 
-/* Update login button based on localStorage */
 /* Update login button based on localStorage */
 function updateLoginButton() {
     const storedUser = localStorage.getItem('noore_user');
@@ -541,27 +654,29 @@ document.addEventListener('keydown', function(e) {
 document.addEventListener("DOMContentLoaded", () => {
     renderCartFromStorage();
     updateLoginButton();
-}); 
+});
 
 // Place Order button click
 placeOrderBtn.addEventListener("click", async () => {
-    const cartItemsElements = document.querySelectorAll(".cart-item");
+    // Only get items from #cartItems (exclude freebies container)
+    const cartItemsElements = document.querySelectorAll("#cartItems .cart-item");
 
     if (cartItemsElements.length === 0) {
-    showToast('🛒 Your cart is empty!');
-    return;
-}
+        showToast("🛒 Your cart is empty!");
+        return;
+    }
 
     // Get user from localStorage
     const storedUser = localStorage.getItem('noore_user');
     if (!storedUser) {
-    showToast('⚠️ Please login first!');
-    openLoginModal();
-    return;
-}
+        showToast('⚠️ Please login first!');
+        openLoginModal();
+        return;
+    }
 
     const user = JSON.parse(storedUser);
 
+    // Filter out freebies (only get items from #cartItems)
     const cartItems = Array.from(cartItemsElements).map(item => ({
         name: item.querySelector(".cart-item-name").innerText,
         price: parseFloat(item.querySelector(".cart-item-price").innerText.replace("₹", ""))
@@ -573,6 +688,7 @@ placeOrderBtn.addEventListener("click", async () => {
     // Show UPI payment modal
     showUPIPaymentModal(user.name, user.email, products, total);
 });
+
 // UPI Payment Modal Function
 function showUPIPaymentModal(customer, email, products, total) {
     let modal = document.getElementById('upiPaymentModal');
@@ -612,6 +728,7 @@ function showUPIPaymentModal(customer, email, products, total) {
 
     modal.style.display = 'flex';
 }
+
 // Close UPI Modal
 function closeUPIModal() {
     const modal = document.getElementById('upiPaymentModal');
@@ -636,7 +753,7 @@ function confirmUPIPayment(customer, email, products, total) {
             method: "POST",
             mode: "no-cors",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({          
+            body: JSON.stringify({
                 customer: customer,
                 email: email || '',
                 phone: phone,
@@ -652,6 +769,7 @@ function confirmUPIPayment(customer, email, products, total) {
         showToast("Order failed: " + err.message);
     });
 }
+
 // Show Order Confirmation Popup
 function showOrderConfirmationPopup(orderId, total) {
     let modal = document.getElementById('orderConfirmationModal');
@@ -694,9 +812,106 @@ function closeOrderConfirmationModal() {
         modal.style.display = 'none';
     }
     document.getElementById("cartItems").innerHTML = "";
-    updateCartTotal();
+    updateCartTotals();
     localStorage.removeItem(CART_STORAGE_KEY);
 }
+
+// Toggle Category Expand
+function toggleCategory(button) {
+    const productGrid = button.previousElementSibling;
+    const extraProducts = productGrid.querySelectorAll('.extra-product');
+    const isExpanded = button.classList.contains('expanded');
+    
+    if (isExpanded) {
+        // Collapse
+        extraProducts.forEach(product => {
+            product.style.display = 'none';
+        });
+        button.classList.remove('expanded');
+        button.querySelector('.expand-text').textContent = 'View More';
+    } else {
+        // Expand
+        extraProducts.forEach(product => {
+            product.style.display = 'block';
+        });
+        button.classList.add('expanded');
+        button.querySelector('.expand-text').textContent = 'View Less';
+    }
+}
+
+// Toggle Browse Menu (Click - works on both desktop and mobile)
+function toggleBrowseMenu(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    const menu = document.getElementById('browseMenu');
+    menu.classList.toggle('show');
+}
+
+// Close Browse Menu
+function closeBrowseMenu() {
+    const menu = document.getElementById('browseMenu');
+    menu.classList.remove('show');
+}
+
+// Close menu when clicking outside
+document.addEventListener('click', function(e) {
+    const menu = document.getElementById('browseMenu');
+    const wrapper = document.querySelector('.browse-wrapper');
+    
+    if (menu && wrapper && !wrapper.contains(e.target)) {
+        menu.classList.remove('show');
+    }
+});
+
+// Close menu on window resize
+window.addEventListener('resize', function() {
+    const menu = document.getElementById('browseMenu');
+    menu.classList.remove('show');
+});
+
+// Lightbox Functions
+function openLightbox(imgSrc) {
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    
+    lightboxImg.src = imgSrc;
+    lightbox.classList.add('show');
+    document.body.style.overflow = 'hidden'; // Prevent scrolling
+    
+    // Add ESC key listener
+    document.addEventListener('keydown', handleEscKey);
+}
+
+function closeLightbox() {
+    const lightbox = document.getElementById('lightbox');
+    lightbox.classList.remove('show');
+    document.body.style.overflow = ''; // Enable scrolling
+    
+    // Remove ESC key listener
+    document.removeEventListener('keydown', handleEscKey);
+}
+
+// Handle ESC key
+function handleEscKey(e) {
+    if (e.key === 'Escape') {
+        closeLightbox();
+    }
+}
+
+// Close lightbox when clicking outside image
+document.getElementById('lightbox').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeLightbox();
+    }
+});
+
+// Add click to all product images
+document.querySelectorAll('.product-img').forEach(img => {
+    img.style.cursor = 'zoom-in';
+    img.addEventListener('click', function() {
+        openLightbox(this.src);
+    });
+});
 </script>
 </body>
 </html>

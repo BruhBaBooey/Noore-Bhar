@@ -13,14 +13,17 @@
 </head>
 <body>
 
+    <!-- Image Lightbox -->
+<div class="lightbox" id="lightbox">
+    <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+    <img class="lightbox-img" id="lightboxImg" src="" alt="Product Image">
+</div>
+
 <!-- ===== HEADER (REUSED) ===== -->
 <header>
     <a href="index.html" class="logo">NOORÉ</a>
     <nav>
         <a href="index.html">Home</a>
-        <a href="#" onclick="toggleCart()">Cart</a>
-        <a href="#" id="loginBtn" class="nav-link login-button" onclick="handleLoginClick()">Login</a>
-        
         <!-- Browse Wrapper (Button + Menu) -->
         <div class="browse-wrapper">
             <a href="#" class="browse-btn" id="browseBtn" onclick="toggleBrowseMenu(event)">Browse ▾</a>
@@ -30,10 +33,12 @@
                 <a href="#bracelets" onclick="closeBrowseMenu()">Bracelets</a>
                 <a href="#rings" onclick="closeBrowseMenu()">Rings</a>
                 <a href="#armcuffs" onclick="closeBrowseMenu()">Arm Cuffs</a>
-                <a href="#ear-accessories" onclick="closeBrowseMenu()">Ear Accessories</a>
+                <a href="#earcuffs" onclick="closeBrowseMenu()">Ear Cuffs</a>
                 <a href="#pendents" onclick="closeBrowseMenu()">Pendants</a>
             </div>
         </div>
+        <a href="#" onclick="toggleCart()">Cart</a>
+        <a href="#" id="loginBtn" class="nav-link login-button" onclick="handleLoginClick()">Login</a>
     </nav>
 </header>
 
@@ -73,86 +78,86 @@
 
             <!-- ===== PRODUCT SET 1 ===== -->
             <div class="card">
-                <img src="assets/products/nora-leigh.jfif" alt="Product Name" class="product-img">
-                <h3>Nora Leigh</h3>
-                <div class="price">₹0</div>
+                <img src="assets/products/redeemer(150).jfif" alt="Product Name" class="product-img">
+                <h3>Redeemer</h3>
+                <div class="price">₹150</div>
                 <button onclick="addToCart(this)">Add to Cart</button>
             </div>
 
             <div class="card">
-                <img src="assets/products/ivy-blink.jfif" alt="Product Name" class="product-img">
+                <img src="assets/products/clara(250).jfif" alt="Product Name" class="product-img">
+                <h3>Clara</h3>
+                <div class="price">₹250</div>
+                <button onclick="addToCart(this)">Add to Cart</button>
+            </div>
+
+            <div class="card">
+                <img src="assets/products/anguliyaka(170).jfif" alt="Product Name" class="product-img">
+                <h3>Anguliyaka</h3>
+                <div class="price">₹170</div>
+                <button onclick="addToCart(this)">Add to Cart</button>
+            </div>
+
+            <div class="card">
+                <img src="assets/products/valaya(350).jfif" alt="Product Name" class="product-img">
+                <h3>Valaya</h3>
+                <div class="price">₹350</div>
+                <button onclick="addToCart(this)">Add to Cart</button>
+            </div>
+
+            <div class="card">
+                <img src="assets/products/ivyblink(60).jfif" alt="Product Name" class="product-img">
                 <h3>Ivy Blink</h3>
-                <div class="price">₹0</div>
+                <div class="price">₹60</div>
                 <button onclick="addToCart(this)">Add to Cart</button>
             </div>
 
             <div class="card">
-                <img src="assets/products/vera-lynn.jfif" alt="Product Name" class="product-img">
-                <h3>Vera Lynn</h3>
-                <div class="price">₹0</div>
-                <button onclick="addToCart(this)">Add to Cart</button>
-            </div>
-
-            <div class="card">
-                <img src="assets/products/ring1.jfif" alt="Product Name" class="product-img">
-                <h3>Sadie Lou</h3>
-                <div class="price">₹0</div>
-                <button onclick="addToCart(this)">Add to Cart</button>
-            </div>
-
-            <div class="card">
-                <img src="assets/products/redeemer.jfif" alt="Product Name" class="product-img">
-                <h3>Coming Soon...</h3>
-                <div class="price">₹0</div>
-                <button onclick="addToCart(this)">Add to Cart</button>
-            </div>
-
-            <div class="card">
-                <img src="assets/products/bracelt.jfif" alt="Product Name" class="product-img">
-                <h3>Coming Soon...</h3>
-                <div class="price">₹0</div>
+                <img src="assets/products/nira(50).jfif" alt="Product Name" class="product-img">
+                <h3>Nira</h3>
+                <div class="price">₹50</div>
                 <button onclick="addToCart(this)">Add to Cart</button>
             </div>
             <!-- ===== PRODUCT SET 2 (DUPLICATE FOR LOOPING) ===== -->
             <div class="card">
-                <img src="assets/products/nora-leigh.jfif" alt="Product Name" class="product-img">
-                <h3>Nora Leigh</h3>
-                <div class="price">₹0</div>
+                <img src="assets/products/redeemer(150).jfif" alt="Product Name" class="product-img">
+                <h3>Redeemer</h3>
+                <div class="price">₹150</div>
                 <button onclick="addToCart(this)">Add to Cart</button>
             </div>
 
             <div class="card">
-                <img src="assets/products/ivy-blink.jfif" alt="Product Name" class="product-img">
+                <img src="assets/products/clara(250).jfif" alt="Product Name" class="product-img">
+                <h3>Clara</h3>
+                <div class="price">₹250</div>
+                <button onclick="addToCart(this)">Add to Cart</button>
+            </div>
+
+            <div class="card">
+                <img src="assets/products/anguliyaka(170).jfif" alt="Product Name" class="product-img">
+                <h3>Anguliyaka</h3>
+                <div class="price">₹170</div>
+                <button onclick="addToCart(this)">Add to Cart</button>
+            </div>
+
+            <div class="card">
+                <img src="assets/products/valaya(350).jfif" alt="Product Name" class="product-img">
+                <h3>Valaya</h3>
+                <div class="price">₹350</div>
+                <button onclick="addToCart(this)">Add to Cart</button>
+            </div>
+
+            <div class="card">
+                <img src="assets/products/ivyblink(60).jfif" alt="Product Name" class="product-img">
                 <h3>Ivy Blink</h3>
-                <div class="price">₹0</div>
+                <div class="price">₹60</div>
                 <button onclick="addToCart(this)">Add to Cart</button>
             </div>
 
             <div class="card">
-                <img src="assets/products/vera-lynn.jfif" alt="Product Name" class="product-img">
-                <h3>Vera Lynn</h3>
-                <div class="price">₹0</div>
-                <button onclick="addToCart(this)">Add to Cart</button>
-            </div>
-
-            <div class="card">
-                <img src="assets/products/ring1.jfif" alt="Product Name" class="product-img">
-                <h3>Sadie Lou</h3>
-                <div class="price">₹0</div>
-                <button onclick="addToCart(this)">Add to Cart</button>
-            </div>
-
-            <div class="card">
-                <img src="assets/products/redeemer.jfif" alt="Product Name" class="product-img">
-                <h3>Coming Soon...</h3>
-                <div class="price">₹0</div>
-                <button onclick="addToCart(this)">Add to Cart</button>
-            </div>
-
-            <div class="card">
-                <img src="assets/products/bracelt.jfif" alt="Product Name" class="product-img">
-                <h3>Coming Soon...</h3>
-                <div class="price">₹0</div>
+                <img src="assets/products/nira(50).jfif" alt="Product Name" class="product-img">
+                <h3>Nira</h3>
+                <div class="price">₹50</div>
                 <button onclick="addToCart(this)">Add to Cart</button>
             </div>
 
@@ -173,9 +178,9 @@
 
     <div class="product-grid">
         <div class="card">
-            <img src="assets/products/bracelt.jfif" alt="Product Name" class="product-img">
-            <h3>Coming Soon...</h3>
-            <div class="price">₹0</div>
+            <img src="assets/products/valaya(350).jfif" alt="Product Name" class="product-img">
+            <h3>Valaya</h3>
+            <div class="price">₹350</div>
             <button onclick="addToCart(this)">Add to Cart</button>
         </div>
         <div class="card">
@@ -238,33 +243,33 @@
 
     <div class="product-grid">
         <div class="card">
-            <img src="assets/products/ivy-blink.jfif" alt="Ivy Blink" class="product-img">
+            <img src="assets/products/ivyblink(60).jfif" alt="Coming Soon" class="product-img">
             <h3>Ivy Blink</h3>
-            <div class="price">₹0</div>
+            <div class="price">₹60</div>
             <button onclick="addToCart(this)">Add to Cart</button>
         </div>
         <div class="card">
-            <img src="assets/products/sadie-lou.jfif" alt="Sadie Lou" class="product-img">
-            <h3>Sadie Lou</h3>
-            <div class="price">₹0</div>
+            <img src="assets/products/anguliyaka(170).jfif" alt="Ivy Blink" class="product-img">
+            <h3>Anguliyaka</h3>
+            <div class="price">₹170</div>
             <button onclick="addToCart(this)">Add to Cart</button>
         </div>
         <div class="card">
-            <img src="assets/products/ring.jfif" alt="Coming Soon" class="product-img">
-            <h3>Coming Soon...</h3>
-            <div class="price">₹0</div>
+            <img src="assets/products/nira(50).jfif" alt="Sadie Lou" class="product-img">
+            <h3>Nira</h3>
+            <div class="price">₹50</div>
             <button onclick="addToCart(this)">Add to Cart</button>
         </div>
         <div class="card">
-            <img src="assets/products/ring1.jfif" alt="Coming Soon" class="product-img">
-            <h3>Coming Soon...</h3>
-            <div class="price">₹0</div>
+            <img src="assets/products/rhea(100).jfif" alt="Coming Soon" class="product-img">
+            <h3>Rhea</h3>
+            <div class="price">₹100</div>
             <button onclick="addToCart(this)">Add to Cart</button>
         </div>
         
         <!-- Hidden extra products -->
         <div class="card extra-product" style="display: none;">
-            <img src="assets/products/ring2.jfif" alt="Coming Soon" class="product-img">
+            <img src="assets/products/comingsoon.png" alt="Coming Soon" class="product-img">
             <h3>Coming Soon...</h3>
             <div class="price">₹0</div>
             <button onclick="addToCart(this)">Add to Cart</button>
@@ -303,8 +308,8 @@
 
     <div class="product-grid">
         <div class="card">
-            <img src="assets/products/vera-lynn.jfif" alt="Vera Lynn" class="product-img">
-            <h3>Vera Lynn</h3>
+            <img src="assets/products/comingsoon.png" alt="Vera Lynn" class="product-img">
+            <h3>Coming Soon...</h3>
             <div class="price">₹0</div>
             <button onclick="addToCart(this)">Add to Cart</button>
         </div>
@@ -360,29 +365,29 @@
     </button>
 </section>
 
-<!-- ===== EAR ACCESSORIES ===== -->
-<section class="category-section" id="ear-accessories">
+<!-- ===== EAR CUFFS ===== -->
+<section class="category-section" id="earcuffs">
     <div class="category-banner" style="background-image: url('assets/Background.png');">
-        <h2>Ear Accessories</h2>
+        <h2>Ear Cuffs</h2>
     </div>
 
     <div class="product-grid">
         <div class="card">
-            <img src="assets/products/earcuff.jfif" alt="Coming Soon" class="product-img">
-            <h3>Coming Soon...</h3>
-            <div class="price">₹0</div>
+            <img src="assets/products/clara(250).jfif" alt="Coming Soon" class="product-img">
+            <h3>Clara</h3>
+            <div class="price">₹250</div>
             <button onclick="addToCart(this)">Add to Cart</button>
         </div>
         <div class="card">
-            <img src="assets/products/earcuff2.jfif" alt="Coming Soon" class="product-img">
-            <h3>Coming Soon...</h3>
-            <div class="price">₹0</div>
+            <img src="assets/products/shakti(250).jfif" alt="Coming Soon" class="product-img">
+            <h3>Shakti</h3>
+            <div class="price">₹250</div>
             <button onclick="addToCart(this)">Add to Cart</button>
         </div>
         <div class="card">
-            <img src="assets/products/grapes.jfif" alt="Coming Soon" class="product-img">
-            <h3>Coming Soon...</h3>
-            <div class="price">₹0</div>
+            <img src="assets/products/kundala(150).jfif" alt="Coming Soon" class="product-img">
+            <h3>Kundala</h3>
+            <div class="price">₹150</div>
             <button onclick="addToCart(this)">Add to Cart</button>
         </div>
         <div class="card">
@@ -433,21 +438,21 @@
 
     <div class="product-grid">
         <div class="card">
-            <img src="assets/products/redeemer(black).jfif" alt="Coming Soon" class="product-img">
-            <h3>Coming Soon...</h3>
-            <div class="price">₹0</div>
+            <img src="assets/products/christ(100).jfif" alt="Coming Soon" class="product-img">
+            <h3>Christ</h3>
+            <div class="price">₹100</div>
             <button onclick="addToCart(this)">Add to Cart</button>
         </div>
         <div class="card">
-            <img src="assets/products/redeemer.jfif" alt="Coming Soon" class="product-img">
-            <h3>Coming Soon...</h3>
-            <div class="price">₹0</div>
+            <img src="assets/products/redeemer(150).jfif" alt="Coming Soon" class="product-img">
+            <h3>Redeemer</h3>
+            <div class="price">₹150</div>
             <button onclick="addToCart(this)">Add to Cart</button>
         </div>
         <div class="card">
-            <img src="assets/products/ohm.jfif" alt="Coming Soon" class="product-img">
-            <h3>Coming Soon...</h3>
-            <div class="price">₹0</div>
+            <img src="assets/products/yog(100).jfif" alt="Coming Soon" class="product-img">
+            <h3>Yog</h3>
+            <div class="price">₹100</div>
             <button onclick="addToCart(this)">Add to Cart</button>
         </div>
         <div class="card">
@@ -483,7 +488,7 @@
             <button onclick="addToCart(this)">Add to Cart</button>
         </div>
     </div>
-
+-
     <button class="expand-btn" onclick="toggleCategory(this)">
         <span class="expand-text">View More</span>
         <span class="expand-icon">▼</span>
@@ -496,10 +501,37 @@
         <h3>Your Cart</h3>
         <button class="close-cart" onclick="toggleCart()">✕</button>
     </div>
+    
+    <!-- Regular Items -->
     <div id="cartItems"></div>
-    <div class="cart-total" id="cartTotal">Total: ₹0.00</div>
+    
+    <!-- Freebies Container -->
+    <div id="freebiesContainer"></div>
+    
+    <!-- Price Breakdown -->
+    <div class="cart-summary">
+        <div class="summary-row">
+            <span>Product Total</span>
+            <span id="productTotalDisplay">₹0</span>
+        </div>
+        <div class="summary-row" id="shippingRow" style="display: none;">
+            <span>Shipping</span>
+            <span>₹60</span>
+        </div>
+        <div class="summary-row total-row">
+            <span>Grand Total</span>
+            <span id="grandTotalDisplay">₹0</span>
+        </div>
+    </div>
+    
+    <!-- Warning Message -->
+    <div id="minOrderWarning" class="warning-msg">
+        ⚠️ Minimum order amount is ₹200
+    </div>
+    
     <button id="placeOrderBtn" class="cart-place-order">Place Order</button>
 </div>
+
 <!-- ===== FOOTER (REUSED) ===== -->
 <footer id="contact">
     <p><strong>Contact Us</strong></p>
@@ -509,17 +541,24 @@
         <a href="https://instagram.com/noor.ebhar" target="_blank">@noor.ebhar</a>
         &nbsp; | &nbsp;
         Email:
-        <a href="mailto:noore.e.bhar@email.com">noore.e.bhar@email.com</a>
+        <a href="mailto:noor.e.bhar.brand@gmail.com">noor.e.bhar.brand@gmail.com</a>
     </p>
-
-    <p style="color: var(--gold);">[ Address goes here ]</p>
-
+    <p>
+    Phone:
+    <a href="tel:+919112458918">+91 91124 58918</a>
+    &nbsp;|&nbsp;
+    <a href="tel:+918424850458">+91 84248 50458</a>
+    </p>
     <br>
-    <p>We will wait for you Latika come back to shop again!</p>
+    <p>We will wait for you Latika...</p>
     
     <br>
     <p>© 2026 NOORÉ Jewellery | All Rights Reserved</p>
 
+    <!-- Footer Art -->
+    <div class="footer-art">
+        <img src="assets/noore-art2.png" alt="NOORÉ Art">
+    </div>
 </footer>
 
 <!-- Add to Cart sound -->
@@ -530,6 +569,7 @@
 <!-- Remove item sound -->
 <audio id="removeItemSound" src="assets/trash.mp3" preload="auto">
 </audio>
+
 <script>
 /* ================================
    CART PERSISTENCE (localStorage)
@@ -537,9 +577,12 @@
 
 const CART_STORAGE_KEY = 'noore_cart_items';
 
-// Save cart to localStorage
+/* ================================
+   BLOCK 2: SAVE, LOAD & RENDER
+================================ */
+
 function saveCartToStorage() {
-    const cartItems = document.querySelectorAll(".cart-item");
+    const cartItems = document.querySelectorAll("#cartItems .cart-item");
     const items = Array.from(cartItems).map(item => ({
         name: item.querySelector(".cart-item-name").innerText,
         price: parseFloat(item.querySelector(".cart-item-price").innerText.replace("₹", ""))
@@ -547,20 +590,17 @@ function saveCartToStorage() {
     localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
 }
 
-// Load cart from localStorage
 function loadCartFromStorage() {
     const stored = localStorage.getItem(CART_STORAGE_KEY);
     if (!stored) return [];
-    
     try {
         return JSON.parse(stored);
     } catch (e) {
-        console.error("Error parsing cart from localStorage:", e);
+        console.error("Error parsing cart:", e);
         return [];
     }
 }
 
-// Render cart items from storage
 function renderCartFromStorage() {
     const items = loadCartFromStorage();
     const cartItems = document.getElementById("cartItems");
@@ -576,14 +616,18 @@ function renderCartFromStorage() {
         
         const priceDiv = document.createElement("div");
         priceDiv.classList.add("cart-item-price");
-        priceDiv.innerText = `₹${item.price}`;
+        priceDiv.innerText = "₹" + item.price;
         
         const removeBtn = document.createElement("button");
         removeBtn.classList.add("cart-item-remove");
         removeBtn.innerText = "✕";
         
-        removeBtn.onclick = function (e) {
+        removeBtn.onclick = function(e) {
             e.stopPropagation();
+            if (itemDiv.classList.contains("freebie-item")) {
+                showToast("Cannot remove Freebie");
+                return;
+            }
             const removeSound = document.getElementById("removeItemSound");
             if (removeSound) {
                 removeSound.volume = 0.10;
@@ -592,7 +636,7 @@ function renderCartFromStorage() {
                 removeSound.play();
             }
             itemDiv.remove();
-            updateCartTotal();
+            updateCartTotals();
             saveCartToStorage();
         };
         
@@ -602,8 +646,9 @@ function renderCartFromStorage() {
         cartItems.appendChild(itemDiv);
     });
     
-    updateCartTotal();
+    updateCartTotals();
 }
+
 /* ================================
    SCROLL & CART FUNCTIONS
 ================================ */
@@ -616,11 +661,22 @@ function toggleCart() {
     document.getElementById("cart").classList.toggle("active");
 }
 
+/* ================================
+   BLOCK 3: ADD TO CART
+================================ */
+
 function addToCart(button) {
     const card = button.closest(".card");
     const productName = card.querySelector("h3").innerText;
+    const productImage = card.querySelector(".product-img").src;
     const productPriceText = card.querySelector(".price").innerText;
     const productPrice = parseFloat(productPriceText.replace("₹", ""));
+
+    // Check if product is "Coming Soon"
+    if (productName === "Coming Soon..." || productImage.includes("comingsoon.png")) {
+        showToast("Coming soon! Hold tight 🌸");
+        return; // Stop function - don't add to cart
+    }
 
     const cartItems = document.getElementById("cartItems");
 
@@ -633,14 +689,18 @@ function addToCart(button) {
 
     const priceDiv = document.createElement("div");
     priceDiv.classList.add("cart-item-price");
-    priceDiv.innerText = `₹${productPrice}`;
+    priceDiv.innerText = "₹" + productPrice;
 
     const removeBtn = document.createElement("button");
     removeBtn.classList.add("cart-item-remove");
     removeBtn.innerText = "✕";
 
-    removeBtn.onclick = function (e) {
+    removeBtn.onclick = function(e) {
         e.stopPropagation();
+        if (item.classList.contains("freebie-item")) {
+            showToast("Cannot remove Freebie");
+            return;
+        }
         const removeSound = document.getElementById("removeItemSound");
         if (removeSound) {
             removeSound.volume = 0.10;
@@ -649,7 +709,7 @@ function addToCart(button) {
             removeSound.play();
         }
         item.remove();
-        updateCartTotal();
+        updateCartTotals();
         saveCartToStorage();
     };
 
@@ -671,21 +731,90 @@ function addToCart(button) {
     button.classList.add("pop");
 
     toggleCart();
-    updateCartTotal();
+    updateCartTotals();
     saveCartToStorage();
 }
 
-function updateCartTotal() {
-    let total = 0;
-    document.querySelectorAll(".cart-item-price").forEach(price => {
-        total += parseFloat(price.innerText.replace("₹", ""));
+/* ================================
+   BLOCK 1: CONSTANTS & MAIN FUNCTION
+================================ */
+
+const MIN_ORDER_AMOUNT = 200;
+const SHIPPING_COST = 60;
+
+function updateCartTotals() {
+    // 1. Calculate Product Total
+    let productTotal = 0;
+    const cartItems = document.querySelectorAll("#cartItems .cart-item");
+    
+    cartItems.forEach(item => {
+        const priceText = item.querySelector(".cart-item-price").innerText.replace("₹", "");
+        productTotal += parseFloat(priceText);
     });
-    document.getElementById("cartTotal").innerText = `Total: ₹${total}`;
+
+    // 2. Calculate Freebies Logic
+    let freebieCount = 0;
+    if (productTotal >= 200) {
+        freebieCount = Math.floor((productTotal - 100) / 100);
+    }
+
+    // 3. Render Freebies (With x2, x3 display)
+    const container = document.getElementById("freebiesContainer");
+    
+    if (freebieCount > 0) {
+        let existingFreebie = container.querySelector(".freebie-item");
+        
+        if (!existingFreebie) {
+            const freebieDiv = document.createElement("div");
+            freebieDiv.classList.add("cart-item", "freebie-item");
+            freebieDiv.innerHTML = `
+                <div class="cart-item-name freebie-label">
+                    <span>🎁</span> Freebie x${freebieCount}
+                </div>
+                <div class="cart-item-price">₹0</div>
+            `;
+            container.appendChild(freebieDiv);
+        } else {
+            existingFreebie.querySelector(".freebie-label").innerHTML = `<span>🎁</span> Freebie x${freebieCount}`;
+        }
+    } else {
+        container.innerHTML = "";
+    }
+
+    // 4. Calculate Totals & Hide Shipping if empty
+    let grandTotal = 0;
+    const shippingRow = document.getElementById("shippingRow");
+    
+    if (productTotal > 0) {
+        grandTotal = productTotal + SHIPPING_COST;
+        shippingRow.style.display = "flex"; // Show shipping
+    } else {
+        shippingRow.style.display = "none"; // Hide shipping
+    }
+
+    // 5. Update UI Text
+    document.getElementById("productTotalDisplay").innerText = "₹" + productTotal;
+    document.getElementById("grandTotalDisplay").innerText = "₹" + grandTotal;
+
+    // 6. Check Minimum Order
+    const warningEl = document.getElementById("minOrderWarning");
+    const placeOrderBtn = document.getElementById("placeOrderBtn");
+
+    if (productTotal < MIN_ORDER_AMOUNT) {
+        warningEl.style.display = "block";
+        warningEl.innerText = "Minimum order amount is ₹200";
+        placeOrderBtn.disabled = true;
+        placeOrderBtn.innerText = "Place Order";
+    } else {
+        warningEl.style.display = "none";
+        placeOrderBtn.disabled = false;
+        placeOrderBtn.innerText = "Place Order";
+    }
 }
 
 /* Prevent inside clicks from closing cart */
 document.getElementById("cart").addEventListener("click", function (event) {
-    event.stopPropagation();
+event.stopPropagation();
 });
 
 /* Outside click closes cart */
@@ -701,6 +830,7 @@ document.addEventListener("click", function (event) {
         cart.classList.remove("active");
     }
 });
+
 /* ================================
    DRAG TO CLOSE CART
 ================================ */
@@ -744,6 +874,7 @@ function endDrag() {
     }
     cart.style.right = "";
 }
+
 /* ================================
    LOGIN & PLACE ORDER BUTTONS
 ================================ */
@@ -875,7 +1006,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Place Order button click
 placeOrderBtn.addEventListener("click", async () => {
-    const cartItemsElements = document.querySelectorAll(".cart-item");
+    // Only get items from #cartItems (exclude freebies container)
+    const cartItemsElements = document.querySelectorAll("#cartItems .cart-item");
 
     if (cartItemsElements.length === 0) {
         showToast("🛒 Your cart is empty!");
@@ -892,6 +1024,7 @@ placeOrderBtn.addEventListener("click", async () => {
 
     const user = JSON.parse(storedUser);
 
+    // Filter out freebies (only get items from #cartItems)
     const cartItems = Array.from(cartItemsElements).map(item => ({
         name: item.querySelector(".cart-item-name").innerText,
         price: parseFloat(item.querySelector(".cart-item-price").innerText.replace("₹", ""))
@@ -903,6 +1036,7 @@ placeOrderBtn.addEventListener("click", async () => {
     // Show UPI payment modal
     showUPIPaymentModal(user.name, user.email, products, total);
 });
+
 // UPI Payment Modal Function
 function showUPIPaymentModal(customer, email, products, total) {
     let modal = document.getElementById('upiPaymentModal');
@@ -935,13 +1069,14 @@ function showUPIPaymentModal(customer, email, products, total) {
             <img src="${qrCodeUrl}" alt="UPI QR Code" style="width: 200px; height: 200px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 10px;">
             <p style="font-size: 12px; color: #666; margin-bottom: 20px;">Scan with any UPI app (Google Pay, PhonePe, Paytm)</p>
             <p style="font-size: 11px; color: #999; margin-bottom: 20px;">UPI ID: ${upiID}</p>
-            <button onclick="confirmUPIPayment('${customer}', '${email}', '${products}', ${total})" style="width: 100%; padding: 12px; background: var(--maroon); color: white; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; margin-bottom: 10px;">I've Paid</button>
+            <button onclick="confirmUPIPayment('${customer}', '${email}', '${products}', ${total})" style="width: 100%; padding: 12px; background: var(--maroon); color: white; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; margin-bottom: 10px;">I've Paid ✅</button>
             <button onclick="closeUPIModal()" style="width: 100%; padding: 10px; background: #ddd; color: #333; border: none; border-radius: 8px; font-size: 14px; cursor: pointer;">Cancel</button>
         </div>
     `;
 
     modal.style.display = 'flex';
 }
+
 // Close UPI Modal
 function closeUPIModal() {
     const modal = document.getElementById('upiPaymentModal');
@@ -982,6 +1117,7 @@ function confirmUPIPayment(customer, email, products, total) {
         showToast("Order failed: " + err.message);
     });
 }
+
 // Show Order Confirmation Popup
 function showOrderConfirmationPopup(orderId, total) {
     let modal = document.getElementById('orderConfirmationModal');
@@ -1024,7 +1160,7 @@ function closeOrderConfirmationModal() {
         modal.style.display = 'none';
     }
     document.getElementById("cartItems").innerHTML = "";
-    updateCartTotal();
+    updateCartTotals();
     localStorage.removeItem(CART_STORAGE_KEY);
 }
 
@@ -1081,6 +1217,49 @@ window.addEventListener('resize', function() {
     menu.classList.remove('show');
 });
 
+// Lightbox Functions
+function openLightbox(imgSrc) {
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    
+    lightboxImg.src = imgSrc;
+    lightbox.classList.add('show');
+    document.body.style.overflow = 'hidden'; // Prevent scrolling
+    
+    // Add ESC key listener
+    document.addEventListener('keydown', handleEscKey);
+}
+
+function closeLightbox() {
+    const lightbox = document.getElementById('lightbox');
+    lightbox.classList.remove('show');
+    document.body.style.overflow = ''; // Enable scrolling
+    
+    // Remove ESC key listener
+    document.removeEventListener('keydown', handleEscKey);
+}
+
+// Handle ESC key
+function handleEscKey(e) {
+    if (e.key === 'Escape') {
+        closeLightbox();
+    }
+}
+
+// Close lightbox when clicking outside image
+document.getElementById('lightbox').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeLightbox();
+    }
+});
+
+// Add click to all product images
+document.querySelectorAll('.product-img').forEach(img => {
+    img.style.cursor = 'zoom-in';
+    img.addEventListener('click', function() {
+        openLightbox(this.src);
+    });
+});
 </script>
 
 </body>
