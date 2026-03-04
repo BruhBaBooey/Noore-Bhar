@@ -16,10 +16,16 @@
 </head>
 <body>
 
-    <!-- Image Lightbox -->
+<!-- Image Lightbox -->
 <div class="lightbox" id="lightbox">
     <button class="lightbox-close" onclick="closeLightbox()">✕</button>
-    <img class="lightbox-img" id="lightboxImg" src="" alt="Product Image">
+    
+    <div class="lightbox-image-container">
+        <img class="lightbox-img" id="lightboxImg" src="" alt="Product Image">
+    </div>
+    
+    <!-- Zoom Level Indicator -->
+    <div class="zoom-indicator" id="zoomIndicator">Zoom: 100%</div>
 </div>
 
 <!-- ===== HEADER (REUSED) ===== -->
@@ -1357,6 +1363,191 @@ function handleEscKey(e) {
     }
 }
 
+/* ================================
+   LIGHTBOX FUNCTIONS WITH ZOOM
+================================ */
+
+/* ================================
+   LIGHTBOX FUNCTIONS WITH POSITION-BASED ZOOM
+================================ */
+
+// Lightbox Variables
+let currentZoomLevel = 1;
+const maxZoom = 3;
+const minZoom = 1.0;
+let touchStartDistance = 0;
+let lastTouchDistance = 0;
+let mouseX = 0;
+let mouseY = 0;
+let initialImageX = 0;
+let initialImageY = 0;
+
+// Open Lightbox
+function openLightbox(imgSrc) {
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    
+    lightboxImg.src = imgSrc;
+    lightbox.classList.add('show');
+    document.body.style.overflow = 'hidden';
+    
+    // Reset zoom when opening
+    currentZoomLevel = 1.0;
+    initialImageX = 0;
+    initialImageY = 0;
+    lightboxImg.style.transform = `scale(${currentZoomLevel}) translate(${initialImageX}px, ${initialImageY}px)`;
+    updateZoomIndicator();
+    
+    // Add event listeners
+    document.addEventListener('keydown', handleEscKey);
+    document.addEventListener('wheel', handleWheelZoom, { passive: false });
+    document.addEventListener('touchstart', handleTouchStart, { passive: false });
+    document.addEventListener('touchmove', handleTouchMove, { passive: false });
+    document.addEventListener('touchend', handleTouchEnd);
+    document.addEventListener('mousemove', trackMousePosition);
+}
+
+// Close Lightbox
+function closeLightbox() {
+    const lightbox = document.getElementById('lightbox');
+    lightbox.classList.remove('show');
+    document.body.style.overflow = '';
+    
+    // Remove event listeners
+    document.removeEventListener('keydown', handleEscKey);
+    document.removeEventListener('wheel', handleWheelZoom);
+    document.removeEventListener('touchstart', handleTouchStart);
+    document.removeEventListener('touchmove', handleTouchMove);
+    document.removeEventListener('touchend', handleTouchEnd);
+    document.removeEventListener('mousemove', trackMousePosition);
+}
+
+// Track Mouse Position for Desktop Zoom
+function trackMousePosition(e) {
+    const container = document.querySelector('.lightbox-image-container');
+    const rect = container.getBoundingClientRect();
+    mouseX = e.clientX - rect.left;
+    mouseY = e.clientY - rect.top;
+}
+
+// Desktop: Mouse Wheel Zoom (Position-Based)
+function handleWheelZoom(e) {
+    e.preventDefault();
+    const lightboxImg = document.getElementById('lightboxImg');
+    const container = document.querySelector('.lightbox-image-container');
+    const rect = container.getBoundingClientRect();
+    
+    // Calculate mouse position relative to image
+    mouseX = e.clientX - rect.left;
+    mouseY = e.clientY - rect.top;
+    
+    // Calculate zoom origin percentage
+    const zoomOriginX = (mouseX / rect.width) * 100;
+    const zoomOriginY = (mouseY / rect.height) * 100;
+    
+    if (e.deltaY < 0) {
+        // Scroll up - zoom in
+        if (currentZoomLevel < maxZoom) {
+            currentZoomLevel += 0.1;
+            lightboxImg.style.transformOrigin = `${zoomOriginX}% ${zoomOriginY}%`;
+            lightboxImg.style.transform = `scale(${currentZoomLevel}) translate(${initialImageX}px, ${initialImageY}px)`;
+            updateZoomIndicator();
+        }
+    } else {
+        // Scroll down - zoom out
+        if (currentZoomLevel > minZoom) {
+            currentZoomLevel -= 0.1;
+            lightboxImg.style.transformOrigin = `${zoomOriginX}% ${zoomOriginY}%`;
+            lightboxImg.style.transform = `scale(${currentZoomLevel}) translate(${initialImageX}px, ${initialImageY}px)`;
+            updateZoomIndicator();
+        }
+    }
+}
+
+// Mobile: Touch Start (Pinch)
+function handleTouchStart(e) {
+    if (e.touches.length === 2) {
+        // Two fingers - calculate distance
+        touchStartDistance = getTouchDistance(e.touches);
+        lastTouchDistance = touchStartDistance;
+        
+        // Calculate center point between fingers
+        const container = document.querySelector('.lightbox-image-container');
+        const rect = container.getBoundingClientRect();
+        const centerX = (e.touches[0].clientX + e.touches[1].clientX) / 2 - rect.left;
+        const centerY = (e.touches[0].clientY + e.touches[1].clientY) / 2 - rect.top;
+        
+        mouseX = centerX;
+        mouseY = centerY;
+    }
+}
+
+// Mobile: Touch Move (Pinch)
+function handleTouchMove(e) {
+    if (e.touches.length === 2) {
+        e.preventDefault();
+        const currentDistance = getTouchDistance(e.touches);
+        
+        // Calculate zoom change
+        const zoomChange = currentDistance / lastTouchDistance;
+        const newZoom = currentZoomLevel * zoomChange;
+        
+        // Calculate center point between fingers
+        const container = document.querySelector('.lightbox-image-container');
+        const rect = container.getBoundingClientRect();
+        const centerX = (e.touches[0].clientX + e.touches[1].clientX) / 2 - rect.left;
+        const centerY = (e.touches[0].clientY + e.touches[1].clientY) / 2 - rect.top;
+        
+        mouseX = centerX;
+        mouseY = centerY;
+        
+        // Apply zoom with limits (minZoom = 1.0)
+        if (newZoom >= minZoom && newZoom <= maxZoom) {
+            currentZoomLevel = newZoom;
+            const lightboxImg = document.getElementById('lightboxImg');
+            const zoomOriginX = (mouseX / rect.width) * 100;
+            const zoomOriginY = (mouseY / rect.height) * 100;
+            lightboxImg.style.transformOrigin = `${zoomOriginX}% ${zoomOriginY}%`;
+            lightboxImg.style.transform = `scale(${currentZoomLevel}) translate(${initialImageX}px, ${initialImageY}px)`;
+            updateZoomIndicator();
+        }
+        
+        lastTouchDistance = currentDistance;
+    }
+}
+
+// Mobile: Touch End
+function handleTouchEnd(e) {
+    if (e.touches.length < 2) {
+        // Reset when pinch ends
+        lastTouchDistance = 0;
+    }
+}
+
+// Helper: Calculate distance between two fingers
+function getTouchDistance(touches) {
+    const x1 = touches[0].clientX;
+    const y1 = touches[0].clientY;
+    const x2 = touches[1].clientX;
+    const y2 = touches[1].clientY;
+    return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+}
+
+// Update Zoom Indicator
+function updateZoomIndicator() {
+    const indicator = document.getElementById('zoomIndicator');
+    if (indicator) {
+        indicator.textContent = `Zoom: ${Math.round(currentZoomLevel * 100)}%`;
+    }
+}
+
+// Handle ESC Key
+function handleEscKey(e) {
+    if (e.key === 'Escape') {
+        closeLightbox();
+    }
+}
+
 // Close lightbox when clicking outside image
 document.getElementById('lightbox').addEventListener('click', function(e) {
     if (e.target === this) {
@@ -1364,13 +1555,34 @@ document.getElementById('lightbox').addEventListener('click', function(e) {
     }
 });
 
-// Add click to all product images
+// Add click to all product images (excluding Coming Soon)
 document.querySelectorAll('.product-img').forEach(img => {
-    img.style.cursor = 'zoom-in';
-    img.addEventListener('click', function() {
-        openLightbox(this.src);
-    });
+    // Check if image is NOT a "Coming Soon" image
+    if (!img.src.includes('comingsoon.png') && !img.src.includes('comingsoon')) {
+        img.style.cursor = 'zoom-in';
+        img.addEventListener('click', function() {
+            openLightbox(this.src);
+        });
+    } else {
+        // Coming Soon images - no click action
+        img.style.cursor = 'default';
+    }
 });
+
+// Add click to all product images (excluding Coming Soon)
+document.querySelectorAll('.product-img').forEach(img => {
+    // Check if image is NOT a "Coming Soon" image
+    if (!img.src.includes('comingsoon.png') && !img.src.includes('comingsoon')) {
+        img.style.cursor = 'zoom-in';
+        img.addEventListener('click', function() {
+            openLightbox(this.src);
+        });
+    } else {
+        // Coming Soon images - no click action
+        img.style.cursor = 'default';
+    }
+});
+
 </script>
 
 </body>
