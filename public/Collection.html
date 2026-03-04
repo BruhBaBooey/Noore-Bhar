@@ -5,6 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NOORÉ | Collections</title>
 
+<!-- EmailJS SDK -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script>
+    (function() {
+        // ✅ YOUR PUBLIC KEY (Already filled in)
+        emailjs.init("j2lQNw5kf65kDMV93");
+    })();
+</script>
+
 <!-- Vercel Analytics -->
     <script async src="https://vercel.live/script.js"></script>
 
@@ -1030,6 +1039,18 @@ function handleLoginClick() {
     } else {
         openLoginModal();
     }
+    // Validate email format before saving
+    if (email && email.includes('@') && email.includes('.')) {
+        const userData = {
+            name: name,
+            email: email,
+            phone: phone
+        };
+        localStorage.setItem('noore_user', JSON.stringify(userData));
+        showToast('Login successful!');
+    } else {
+        showToast('Invalid email format!');
+    }
 }
 
 // Logout Confirmation Modal
@@ -1200,31 +1221,40 @@ function confirmUPIPayment() {
         phone = JSON.parse(storedUser).phone || '';
     }
     
-    // Convert products array to JSON string
-    const productsJSON = JSON.stringify(orderData.products);
+    // Format products nicely (not JSON)
+    const productsList = orderData.products.map(item => 
+        `${item.name} - ₹${item.price}`
+    ).join('\n');
     
-    const formData = new URLSearchParams();
-    formData.append('customer', orderData.customer);
-    formData.append('email', orderData.email);
-    formData.append('phone', phone);
-    formData.append('products', productsJSON);
-    formData.append('productList', orderData.productList);
-    formData.append('total', orderData.total);
-
-    fetch(
-        "https://script.google.com/macros/s/AKfycbwOj4kVPk6oQ2T8aQ0FPqrPFIzHCohKxRQyJgzEBsChCQxGB56HxAn3aI7X0yZFbaUA/exec",
-        {
-            method: "POST",
-            mode: "no-cors",
-            body: formData
-        }
-    ).then(() => {
-        closeUPIModal();
-        showOrderConfirmationPopup(orderId, orderData.total);
-    }).catch((err) => {
-        console.error(err);
-        showToast("Order failed: " + err.message);
-    });
+    // Validate customer email
+    if (!orderData.email || !orderData.email.includes('@') || !orderData.email.includes('.')) {
+        console.error('Invalid customer email:', orderData.email);
+        showToast('Invalid email address! Please login again.');
+        return;
+    }
+    
+    const templateParams = {
+        order_id: orderId,
+        customer_name: orderData.customer,
+        customer_email: orderData.email,
+        customer_phone: phone,
+        products: productsList,
+        total: orderData.total,
+        to_email: orderData.email // ✅ Send to customer
+    };
+    
+    // ✅ Send ONE email to customer
+    emailjs.send('service_soy3imv', 'template_qta1mrp', templateParams)
+        .then(() => {
+            console.log('Order email sent to customer!');
+            closeUPIModal();
+            showOrderConfirmationPopup(orderId, orderData.total);
+        })
+        .catch((error) => {
+            console.error('Email failed: ', error);
+            console.error('Error details:', error.text);
+            showToast('Order failed: ' + error.text);
+        });
 }
 
 // Close UPI Modal
