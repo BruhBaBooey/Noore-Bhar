@@ -213,9 +213,9 @@ nav a:hover {
 .category-banner h2 {
     position: relative;
     z-index: 2;
-    color: var(--category-text-color);
+    color: var(--gold);
     font-family: 'Playfair Display', serif;
-    font-size: 48px;
+    font-size: 60px;
     letter-spacing: 3px;
     padding: 15px 30px;
     border-radius: 10px;
@@ -227,8 +227,11 @@ nav a:hover {
         rgba(255, 255, 255, 0.05) 70%,  /* fade start */
         rgba(255, 255, 255, 0) 100%     /* fully transparent edges */
     );
+    
+    backdrop-filter: blur(0.5px); /* soft glass effect */
 
-    backdrop-filter: blur(1px); /* soft glass effect */
+    /* TEXT SHADOW ADDED BELOW */
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4);
 }
 
 /* PRODUCT GRID */
@@ -678,7 +681,7 @@ footer a:hover {
 .offerings-header h2 {
     color: var(--category-text-color);  /* maroon */
     font-family: 'Playfair Display', serif;  /* same as category text */
-    font-size: 52px;                      /* slightly taller than category h2 */
+    font-size: 50px;                      /* slightly taller than category h2 */
     letter-spacing: 3px;
 }
 
@@ -797,14 +800,17 @@ header nav .login-button.logged-in {
     }
 
     /* ===== PRODUCT CARDS ===== */
+    /* ⬇️⬇️⬇️ CHANGE CARD SIZE HERE ⬇️⬇️⬇️ */
     .category-section .card {
-        width: 180px; /* slightly smaller for mobile */
-        padding: 15px; /* tighter layout */
+        width: 240px; /* CHANGE THIS: Increase for bigger cards (default: 200px) */
+        padding: 30px; /* CHANGE THIS: Increase for more padding (default: 20px) */
     }
 
+    /* ⬇️⬇️⬇️ CHANGE SPACING HERE ⬇️⬇️⬇️ */
     .category-section .product-grid {
+        margin-left: -8px;
         grid-template-columns: repeat(2, 1fr); /* 2 columns */
-        gap: 12px;                             /* smaller gap */
+        gap: 30px; /* CHANGE THIS: Increase for more space between cards (default: 20px) */
         justify-items: center;
     }
 
@@ -825,9 +831,10 @@ header nav .login-button.logged-in {
         position: relative;
     }
 
+    /* ⬇️⬇️⬇️ CHANGE BANNER TEXT SIZE HERE ⬇️⬇️⬇️ */
     .category-banner h2 {
-        font-size: 32px;                     /* smaller heading */
-        padding: 8px 12px;                   /* fit inside banner */
+        font-size: 40px; /* CHANGE THIS: Increase for bigger text (default: 40px) */
+        padding: 12px 20px; /* CHANGE THIS: Adjust padding for text (default: 12px 20px) */
         text-align: center;
         margin: 0;
         display: block;
@@ -846,8 +853,9 @@ header nav .login-button.logged-in {
         padding: 0 10px;
     }
 
+    /* ⬇️⬇️⬇️ CHANGE OFFERINGS TEXT SIZE HERE ⬇️⬇️⬇️ */
     .offerings-header h2 {
-        font-size: 36px;                 /* smaller text */
+        font-size: 48px; /* CHANGE THIS: Increase for bigger text (default: 48px) */
         line-height: 1.2em;
         margin: 0;
         padding: 0 10px;
@@ -870,10 +878,10 @@ header nav .login-button.logged-in {
         white-space: nowrap;     /* keep text in one line */
     }
 
-        /* ===== SCROLLING PRODUCTS MOBILE ===== */
+    /* ===== SCROLLING PRODUCTS MOBILE ===== */
     .scroll-track .card {
         min-width: 150px;
-        width: 100px;
+        width: 200px;
         padding: 16px;
     }
 
@@ -899,11 +907,6 @@ header nav .login-button.logged-in {
         margin-bottom: 25px;
     }
 
-}
-
-#toast {
-    background-color: var(--maroon) !important;
-    color: white !important;
 }
 
 /* ===== VERY SMALL PHONES ===== */
@@ -940,25 +943,33 @@ header nav .login-button.logged-in {
         height: 15vh;
     }
 
+    /* ⬇️⬇️⬇️ CHANGE BANNER TEXT SIZE FOR VERY SMALL PHONES ⬇️⬇️⬇️ */
     .category-banner h2 {
-        font-size: 28px;
+        font-size: 36px; /* CHANGE THIS: Adjust for very small screens (default: 36px) */
     }
 
     /* ===== OFFERINGS HEADER ===== */
     .offerings-header h2 {
-        font-size: 32px;
+        font-size: 42px; /* CHANGE THIS: Adjust for very small screens (default: 42px) */
     }
 
     /* ===== PRODUCT CARDS ===== */
+    /* ⬇️⬇️⬇️ CHANGE CARD SIZE FOR VERY SMALL PHONES ⬇️⬇️⬇️ */
     .category-section .card {
-        width: 160px;
-        padding: 12px;
+        width: 180px; /* CHANGE THIS: Adjust for very small screens (default: 180px) */
+        padding: 18px; /* CHANGE THIS: Adjust padding for very small screens (default: 18px) */
     }
 
+    /* ⬇️⬇️⬇️ CHANGE SPACING FOR VERY SMALL PHONES ⬇️⬇️⬇️ */
     .category-section .product-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
+        gap: 15px; /* CHANGE THIS: Adjust gap for very small screens (default: 15px) */
     }
+}
+
+#toast {
+    background-color: var(--maroon) !important;
+    color: white !important;
 }
 
 /* Lightbox Overlay */
