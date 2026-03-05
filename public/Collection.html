@@ -336,7 +336,7 @@
 
 <!-- ===== ARM CUFFS ===== -->
 <section class="category-section" id="armcuffs">
-    <div class="category-banner" style="background-image: url('assets/Background.png');">
+    <div class="category-banner" style="background-image: url('assets/armcuffs-banner.png');">
         <h2>Arm Cuffs</h2>
     </div>
 
@@ -401,7 +401,7 @@
 
 <!-- ===== EAR CUFFS ===== -->
 <section class="category-section" id="earcuffs">
-    <div class="category-banner" style="background-image: url('assets/Background.png');">
+    <div class="category-banner" style="background-image: url('assets/earcuffs-banner.png');">
         <h2>Ear Cuffs</h2>
     </div>
 
@@ -531,7 +531,7 @@
 
 <!-- ===== HAIR PINS ===== -->
 <section class="category-section" id="hairpins">
-    <div class="category-banner" style="background-image: url('assets/Background.png    ');">
+    <div class="category-banner" style="background-image: url('assets/hairpins-banner.png    ');">
         <h2>Hair Pins</h2>
     </div>
 
@@ -851,10 +851,11 @@ function updateCartTotals() {
         productTotal += parseFloat(priceText);
     });
 
-    // 2. Calculate Freebies Logic
+    // 2. Calculate Freebies Logic (CORRECTED)
+    // Every ₹200 = 1 Freebie
     let freebieCount = 0;
     if (productTotal >= 200) {
-        freebieCount = Math.floor((productTotal - 100) / 100);
+        freebieCount = Math.floor(productTotal / 200);
     }
 
     // 3. Render Freebies (With x2, x3 display)
@@ -909,9 +910,8 @@ function updateCartTotals() {
         placeOrderBtn.disabled = false;
         placeOrderBtn.innerText = "Place Order";
     }
-}
+}/* Prevent inside clicks from closing cart */
 
-/* Prevent inside clicks from closing cart */
 document.getElementById("cart").addEventListener("click", function (event) {
 event.stopPropagation();
 });
@@ -1202,7 +1202,7 @@ function showUPIPaymentModal() {
             <img src="${qrCodeUrl}" alt="UPI QR Code" style="width: 200px; height: 200px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 10px;">
             <p style="font-size: 12px; color: #666; margin-bottom: 20px;">Scan with any UPI app</p>
             <p style="font-size: 11px; color: #999; margin-bottom: 20px;">UPI ID: ${upiID}</p>
-            <button onclick="confirmUPIPayment()" style="width: 100%; padding: 12px; background: var(--maroon); color: white; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; margin-bottom: 10px;">I've Paid ✅</button>
+            <button id="confirmPaymentBtn" onclick="confirmUPIPayment()" style="width: 100%; padding: 12px; background: var(--maroon); color: white; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; margin-bottom: 10px;">I've Paid ✅</button>
             <button onclick="closeUPIModal()" style="width: 100%; padding: 10px; background: #ddd; color: #333; border: none; border-radius: 8px; font-size: 14px; cursor: pointer;">Cancel</button>
         </div>
     `;
@@ -1210,8 +1210,17 @@ function showUPIPaymentModal() {
     modal.style.display = 'flex';
 }
 
+// Global Flag to Prevent Double Submission
+let isOrderProcessing = false;
+
 // Confirm Payment Function
 function confirmUPIPayment() {
+    // Prevent multiple clicks
+    if (isOrderProcessing) {
+        showToast('Please wait... Order is being processed');
+        return;
+    }
+
     const orderData = window.pendingOrder;
     const orderId = 'NOOR-' + Date.now().toString().slice(-6);
     
@@ -1231,6 +1240,17 @@ function confirmUPIPayment() {
         console.error('Invalid customer email:', orderData.email);
         showToast('Invalid email address! Please login again.');
         return;
+    }
+    
+    // Set processing flag
+    isOrderProcessing = true;
+    
+    // Disable button and show loading state
+    const btn = document.getElementById('confirmPaymentBtn');
+    if (btn) {
+        btn.disabled = true;
+        btn.innerText = 'Sending...';
+        btn.style.background = '#999';
     }
     
     const templateParams = {
@@ -1254,6 +1274,15 @@ function confirmUPIPayment() {
             console.error('Email failed: ', error);
             console.error('Error details:', error.text);
             showToast('Order failed: ' + error.text);
+        })
+        .finally(() => {
+            // Reset processing flag and button state
+            isOrderProcessing = false;
+            if (btn) {
+                btn.disabled = false;
+                btn.innerText = 'I\'ve Paid ✅';
+                btn.style.background = 'var(--maroon)';
+            }
         });
 }
 
@@ -1263,6 +1292,8 @@ function closeUPIModal() {
     if (modal) {
         modal.style.display = 'none';
     }
+    // Reset processing flag in case user cancels
+    isOrderProcessing = false;
 }
 
 // Show Order Confirmation Popup
@@ -1599,19 +1630,6 @@ document.querySelectorAll('.product-img').forEach(img => {
     }
 });
 
-// Add click to all product images (excluding Coming Soon)
-document.querySelectorAll('.product-img').forEach(img => {
-    // Check if image is NOT a "Coming Soon" image
-    if (!img.src.includes('comingsoon.png') && !img.src.includes('comingsoon')) {
-        img.style.cursor = 'zoom-in';
-        img.addEventListener('click', function() {
-            openLightbox(this.src);
-        });
-    } else {
-        // Coming Soon images - no click action
-        img.style.cursor = 'default';
-    }
-});
 
 </script>
 
